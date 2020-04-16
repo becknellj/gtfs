@@ -2,6 +2,7 @@
 
 # Authors:
 * Daniel Griffith
+* Andrew Nebel
 * Josiah Yoder
 
 # About this project
