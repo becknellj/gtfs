@@ -1,10 +1,10 @@
-package Lab4;
+package gtfseditor;
 
 
 import java.sql.Time;
 
 /**
- * @author nebela
+ * @author becknellj
  * @version 1.0
  * @created 16-Apr-2020 12:34:59 PM
  */

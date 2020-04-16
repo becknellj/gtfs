@@ -1,5 +1,10 @@
-package Lab4;
+package gtfseditor;
 
+
+import gtfseditor.Route;
+
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * @author nebela
@@ -8,10 +13,10 @@ package Lab4;
  */
 public class Application {
 
-	protected HashTable<Route> routes;
-	protected HashTable<Stop> stops;
-	protected HashTable<StopTime> stopTimes;
-	protected HashTable<Trip> trips;
+	protected Hashtable<String, Route> routes;
+	protected Hashtable<String,Stop> stops;
+	protected Hashtable<String, StopTime> stopTimes;
+	protected Hashtable<String, Trip> trips;
 	public Trip m_Trip;
 	public StopTime m_StopTime;
 	public Stop m_Stop;
@@ -29,8 +34,8 @@ public class Application {
 	 * 
 	 * @param trip_id
 	 */
-	public doube, double calculateBusPosition(String trip_id){
-		return null;
+	public double calculateBusPosition(String trip_id){
+		return 0.0;
 	}
 
 	public double displayAllTripDistance(){
@@ -71,7 +76,7 @@ public class Application {
 	 * @param stop_times
 	 * @param routes
 	 */
-	public boolean import(String stops, String trips, String stop_times, String routes){
+	public boolean importFiles(String stops, String trips, String stop_times, String routes){
 		return false;
 	}
 
