@@ -1,6 +1,8 @@
 package Lab4;
 
 
+import java.sql.Time;
+
 /**
  * @author nebela
  * @version 1.0
