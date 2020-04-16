@@ -1,8 +1,10 @@
 # General Transit Feed Specification Tool
 
 # Authors:
+* Jade Becknell
 * Daniel Griffith
 * Andrew Nebel
+* Jacob Schultz
 * Josiah Yoder
 
 # About this project
