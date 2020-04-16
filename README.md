@@ -1,8 +1,8 @@
 # General Transit Feed Specification Tool
 
 # Authors:
-Daniel Griffith
-Josiah Yoder
+* Daniel Griffith
+* Josiah Yoder
 
 # About this project
 General Transit Feed Specification (GTFS) Static is a flat file format for specifying transit(aka bus)schedule information.  More details and example files are available here: https://developers.google.com/transit/gtfs/.  This formatis used by Google Transit and mosttransit applications around the world.  Creating and maintaining GTFS files can be challenging for a transit organization as bus schedules change, stops change, and routes change. The final product will be able to do the following:
