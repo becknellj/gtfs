@@ -1,6 +1,7 @@
 # Activity Week 4 Class 1: Collaborating with Github
 
 # Authors:
+Daniel Griffith
 Josiah Yoder
 
 # About this project
