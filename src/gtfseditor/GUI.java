@@ -1,5 +1,10 @@
-package Lab4;
+package gtfseditor;
 
+
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
+
+import java.util.List;
 
 /**
  * @author nebela
