@@ -4,7 +4,7 @@ package gtfseditor;
 import java.time.ZonedDateTime;
 
 /**
- * @author griffithd@msoe.edu
+ * @authors griffithd@msoe.edu, andrew nebel
  * @version 1.0
  * @created 16-Apr-2020 12:34:59 PM
  */
@@ -21,8 +21,19 @@ public class Trip {
 	private String trip_headsign;
 	private String trip_id;
 
-	public Trip(){
-
+	public Trip(int block_id, int direction_id, double distance, ZonedDateTime endTime,
+				String route_id, String service_id, String shape_id,
+				ZonedDateTime startTime, String trip_headsign, String trip_id) {
+		this.block_id = block_id;
+		this.direction_id = direction_id;
+		this.distance = distance;
+		this.endTime = endTime;
+		this.route_id = route_id;
+		this.service_id = service_id;
+		this.shape_id = shape_id;
+		this.startTime = startTime;
+		this.trip_headsign = trip_headsign;
+		this.trip_id = trip_id;
 	}
 
 	public int getBlock_id() {

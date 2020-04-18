@@ -7,7 +7,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * @author becknellj
+ * @authors becknellj, andrew nebel
  * @version 1.0
  * @created 16-Apr-2020 12:34:58 PM
  */
@@ -23,7 +23,10 @@ public class Application {
 	public Route m_Route;
 
 	public Application(){
-
+		this.trips = new Hashtable<String, Trip>();
+		this.stops = new Hashtable<String, Stop>();
+		this.stopTimes = new Hashtable<String, StopTime>();
+		this.routes = new Hashtable<String, Route>();
 	}
 
 	public void finalize() throws Throwable {

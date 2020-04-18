@@ -4,7 +4,7 @@ package gtfseditor;
 import java.sql.Time;
 
 /**
- * @author becknellj
+ * @authors becknellj, andrew nebel
  * @version 1.0
  * @created 16-Apr-2020 12:34:59 PM
  */
@@ -19,8 +19,16 @@ public class StopTime {
 	private int stop_sequence;
 	private String trip_id;
 
-	public StopTime(){
-
+	public StopTime(Time arrival_time, Time departure_time, int drop_off_type, int pickup_type,
+					int stop_headsign, String stop_id, int stop_sequence, String trip_id) {
+		this.arrival_time = arrival_time;
+		this.departure_time = departure_time;
+		this.drop_off_type = drop_off_type;
+		this.pickup_type = pickup_type;
+		this.stop_headsign = stop_headsign;
+		this.stop_id = stop_id;
+		this.stop_sequence = stop_sequence;
+		this.trip_id = trip_id;
 	}
 
 	public int getDrop_off_type() {

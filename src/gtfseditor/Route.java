@@ -4,7 +4,7 @@ package gtfseditor;
 import java.util.ArrayList;
 
 /**
- * @author schultzjaco
+ * @authors schultzjaco, andrew nebel
  * @version 1.1
  * @created 16-Apr-2020 12:50:58 PM
  */
@@ -21,8 +21,19 @@ public class Route {
 	private String route_url;
 	private ArrayList stops;
 
-	public Route(){
-
+	public Route(String agency_id, String route_color, String route_desc, String route_id,
+				 String route_long_name, String route_short_name, String route_text_color,
+				 int route_type, String route_url, ArrayList stops) {
+		this.agency_id = agency_id;
+		this.route_color = route_color;
+		this.route_desc = route_desc;
+		this.route_id = route_id;
+		this.route_long_name = route_long_name;
+		this.route_short_name = route_short_name;
+		this.route_text_color = route_text_color;
+		this.route_type = route_type;
+		this.route_url = route_url;
+		this.stops = stops;
 	}
 
 	/**
