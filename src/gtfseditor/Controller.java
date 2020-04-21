@@ -3,6 +3,7 @@ package gtfseditor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 
 import java.io.*;
@@ -24,6 +25,9 @@ public class Controller {
     Hashtable<String, LinkedList<String>> stopHashtable = new Hashtable<>();
     Hashtable<String, LinkedList<String>> stopTimeHashtable = new Hashtable<>();
     Hashtable<String, LinkedList<String>> routeHashtable = new Hashtable<>();
+
+    @FXML
+    TextArea textArea;
 
     @FXML
     public void openStopsFile(ActionEvent event){
@@ -144,7 +148,7 @@ public class Controller {
      * @param bufferIn Buffered reader that is attatched to the gtfs csv files
      * @param hashtable List with keys indicating the row of the file and value is a list data from one line
      */
-    private void fileToTable(BufferedReader bufferIn, Hashtable<String, LinkedList<String>> hashtable){
+    private Hashtable<String, LinkedList<String>> fileToTable(BufferedReader bufferIn, Hashtable<String, LinkedList<String>> hashtable){
         String[] elements = null;
 
         try {
@@ -162,12 +166,15 @@ public class Controller {
 
                 hashtable.put(key, oneLine);                //adding info at key indicating the row
                 c = bufferIn.readLine();
-            }
+                //textArea.appendText(hashtable.toString());
 
+            }
+            System.out.println(hashtable.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return hashtable;
     }
 
     /**

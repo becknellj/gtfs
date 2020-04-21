@@ -27,7 +27,6 @@
             <Button fx:id="importRoutesButton" layoutX="346.0" layoutY="58.0" mnemonicParsing="false" onAction="#openRoutesFile" prefWidth="89.0" text="routes.txt" />
             <Label layoutX="17.0" layoutY="103.0" text="Once a file is selected for each click inport" />
             <Label layoutX="14.0" layoutY="172.0" text="The data structures will be displayed in the console" />
-            <TextArea layoutX="16.0" layoutY="196.0" prefHeight="122.0" prefWidth="415.0" />
          </children>
       </Pane>
    </children>
