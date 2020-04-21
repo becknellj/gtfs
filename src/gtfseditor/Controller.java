@@ -1,3 +1,7 @@
+/**
+ * Author(s): Jade Becknell, Andrew Nebel
+ */
+
 package gtfseditor;
 
 import javafx.event.ActionEvent;
@@ -8,7 +12,6 @@ import javafx.stage.FileChooser;
 import java.io.*;
 import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.List;
 
 
 public class Controller {
@@ -160,6 +163,7 @@ public class Controller {
                 hashtable.put(key, oneLine);                //adding info at key indicating the row
                 c = bufferIn.readLine();
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();
