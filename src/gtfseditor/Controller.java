@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
@@ -130,10 +131,10 @@ public class Controller {
 
 
             //passes the buffered reader and Hashtable into helper method to transfer data from file to table
-            fileToTable(tripBufferedReader, tripHashtable);
-            fileToTable(stopBufferedReader, stopHashtable);
-            fileToTable(stopTimeBufferedReader, stopTimeHashtable);
-            fileToTable(routeBufferedReader, routeHashtable);
+            fileToTable(tripBufferedReader, tripHashtable, tripFile.getName());
+            fileToTable(stopBufferedReader, stopHashtable, stopFile.getName());
+            fileToTable(stopTimeBufferedReader, stopTimeHashtable, timeFile.getName());
+            fileToTable(routeBufferedReader, routeHashtable, routeFile.getName());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -148,11 +149,12 @@ public class Controller {
      * @param bufferIn Buffered reader that is attatched to the gtfs csv files
      * @param hashtable List with keys indicating the row of the file and value is a list data from one line
      */
-    private Hashtable<String, LinkedList<String>> fileToTable(BufferedReader bufferIn, Hashtable<String, LinkedList<String>> hashtable){
+    private Hashtable<String, LinkedList<String>> fileToTable(BufferedReader bufferIn, Hashtable<String, LinkedList<String>> hashtable, String fileName){
         String[] elements = null;
 
         try {
             String c = bufferIn.readLine();
+            System.out.println("\n\nNew Hashtable: "+ fileName);
 
             for(int i = 0; c != null; i++) { //for each line in doc
                 elements = c.split(","); //fills array with data from one line
@@ -169,13 +171,14 @@ public class Controller {
                 //textArea.appendText(hashtable.toString());
 
             }
-            System.out.println(hashtable.toString());
+            System.out.println(hashtable.toString()+"\n");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return hashtable;
     }
+
 
     /**
      * Presents an alert containing exception information
