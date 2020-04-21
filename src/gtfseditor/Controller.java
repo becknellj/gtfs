@@ -1,7 +1,3 @@
-/**
- * Author(s): Jade Becknell, Andrew Nebel
- */
-
 package gtfseditor;
 
 import javafx.event.ActionEvent;
@@ -13,7 +9,11 @@ import java.io.*;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-
+/**
+ * @authors becknellj, andrew nebel
+ * @version 1.1
+ * @created 16-Apr-2020 12:50:58 PM
+ */
 public class Controller {
     File selectedTripFile = null;
     File selectedTimeFile = null;
