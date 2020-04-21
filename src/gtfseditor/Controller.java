@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -16,10 +17,10 @@ public class Controller {
     File selectedRouteFile = null;
     File selectedStopFile = null;
 
-    Hashtable<String, List<String>> tripHashtable = new Hashtable<>();
-    Hashtable<String, List<String>> stopHashtable = new Hashtable<>();
-    Hashtable<String, List<String>> stopTimeHashtable = new Hashtable<>();
-    Hashtable<String, List<String>> routeHashtable = new Hashtable<>();
+    Hashtable<String, LinkedList<String>> tripHashtable = new Hashtable<>();
+    Hashtable<String, LinkedList<String>> stopHashtable = new Hashtable<>();
+    Hashtable<String, LinkedList<String>> stopTimeHashtable = new Hashtable<>();
+    Hashtable<String, LinkedList<String>> routeHashtable = new Hashtable<>();
 
     @FXML
     public void openStopsFile(ActionEvent event){
@@ -79,7 +80,7 @@ public class Controller {
             fileChooser.getExtensionFilters().addAll(extFilter1);
             selectedTripFile = fileChooser.showOpenDialog(null);
 
-
+            selectedTripFile.getName();
         } catch (NullPointerException e){
             throwAlert("NullPointerException", "No file was selected, please select a file.");
         } catch (IllegalArgumentException e){
@@ -95,7 +96,7 @@ public class Controller {
         try{
 
             //passes selected files from filechooser into helper method
-            parseFiles(selectedTripFile,selectedRouteFile,selectedStopFile,selectedTimeFile);
+            parseFiles(selectedTripFile, selectedRouteFile,selectedStopFile, selectedTimeFile);
 
         } catch (NullPointerException e){
             throwAlert("FileNotFoundException", "Following file not found: ");
@@ -113,16 +114,12 @@ public class Controller {
      * @param timeFile file with stop time information
      */
     private void parseFiles(File tripFile,File routeFile,File stopFile,File timeFile){
-        BufferedReader tripBufferedReader = null;
-        BufferedReader stopBufferedReader = null;
-        BufferedReader stopTimeBufferedReader = null;
-        BufferedReader routeBufferedReader = null;
 
         try{
-            tripBufferedReader = new BufferedReader(new FileReader(tripFile));
-            stopBufferedReader = new BufferedReader(new FileReader(stopFile));
-            stopTimeBufferedReader = new BufferedReader(new FileReader(timeFile));
-            routeBufferedReader = new BufferedReader(new FileReader(routeFile));
+            BufferedReader tripBufferedReader = new BufferedReader(new FileReader(tripFile));
+            BufferedReader stopBufferedReader = new BufferedReader(new FileReader(stopFile));
+            BufferedReader stopTimeBufferedReader = new BufferedReader(new FileReader(timeFile));
+            BufferedReader routeBufferedReader = new BufferedReader(new FileReader(routeFile));
 
 
             //passes the buffered reader and Hashtable into helper method to transfer data from file to table
@@ -144,7 +141,7 @@ public class Controller {
      * @param bufferIn Buffered reader that is attatched to the gtfs csv files
      * @param hashtable List with keys indicating the row of the file and value is a list data from one line
      */
-    private void fileToTable(BufferedReader bufferIn, Hashtable<String, List<String>> hashtable){
+    private void fileToTable(BufferedReader bufferIn, Hashtable<String, LinkedList<String>> hashtable){
         String[] elements = null;
 
         try {
@@ -154,7 +151,7 @@ public class Controller {
                 elements = c.split(","); //fills array with data from one line
 
                 String key = Integer.toString(i); //essentially the "row"
-                List<String> oneLine = null;        //contains one line of data
+                LinkedList<String> oneLine = new LinkedList<>();        //contains one line of data
 
                 for (int j = 0; j <elements.length; j++) {  //for each element in one line
                     oneLine.add(elements[j]);               //filling up list that will be put in the table
