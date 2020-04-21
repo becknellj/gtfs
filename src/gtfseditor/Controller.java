@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.util.Hashtable;
+import java.util.List;
 
 
 public class Controller {
@@ -15,10 +16,10 @@ public class Controller {
     File selectedRouteFile = null;
     File selectedStopFile = null;
 
-    Hashtable<String, String> tripInfo = new Hashtable<>();//k is stringId, v is strings with info
-    Hashtable<String, String> stopInfo = new Hashtable<>();//k is stringId, v is strings with info
-    Hashtable<String, String> stopTimeInfo = new Hashtable<>();//k is stringId, v is strings with info
-    Hashtable<String, String> routeInfo = new Hashtable<>();//k is stringId, v is strings with info
+    Hashtable<String, List<String>> tripHashtable = new Hashtable<>();
+    Hashtable<String, List<String>> stopHashtable = new Hashtable<>();
+    Hashtable<String, List<String>> stopTimeHashtable = new Hashtable<>();
+    Hashtable<String, List<String>> routeHashtable = new Hashtable<>();
 
     @FXML
     public void openStopsFile(ActionEvent event){
@@ -78,16 +79,6 @@ public class Controller {
             fileChooser.getExtensionFilters().addAll(extFilter1);
             selectedTripFile = fileChooser.showOpenDialog(null);
 
-          /*  FileInputStream inTrip = new FileInputStream(selectedTripFile); //input stream
-            FileOutputStream outTrip = new FileOutputStream(new File("importTrip.txt"));
-
-            int c;
-            while((c = inTrip.read()) != -1){
-                outTrip.write(c);
-            }
-
-            inTrip.close();
-            outTrip.close();*/
 
         } catch (NullPointerException e){
             throwAlert("NullPointerException", "No file was selected, please select a file.");
@@ -103,36 +94,42 @@ public class Controller {
         FileOutputStream tripOut = null;
         try{
 
-           parseFiles(selectedTripFile,selectedRouteFile,selectedStopFile,selectedTimeFile);
+            //passes selected files from filechooser into helper method
+            parseFiles(selectedTripFile,selectedRouteFile,selectedStopFile,selectedTimeFile);
 
         } catch (NullPointerException e){
             throwAlert("FileNotFoundException", "Following file not found: ");
                     e.printStackTrace();
-        } /*catch (IOException e) {
-            throwAlert("IOException", "Error writing to stream");
-        }*/
+        }
 
     }
     //helper method that takes in four selected files and parses the information with four hash tables
+
+    /**
+     * Helper method tht takes in four selected files and parses the information into four hash tables
+     * @param tripFile file with trip information
+     * @param routeFile file with route information
+     * @param stopFile file with stop information
+     * @param timeFile file with stop time information
+     */
     private void parseFiles(File tripFile,File routeFile,File stopFile,File timeFile){
-        BufferedReader tripIn = null;
-        BufferedReader stopIn = null;
-        BufferedReader stopTimeIn = null;
-        BufferedReader routeIn = null;
+        BufferedReader tripBufferedReader = null;
+        BufferedReader stopBufferedReader = null;
+        BufferedReader stopTimeBufferedReader = null;
+        BufferedReader routeBufferedReader = null;
 
         try{
-            tripIn = new BufferedReader(new FileReader(tripFile));
-            stopIn = new BufferedReader(new FileReader(stopFile));
-            stopTimeIn = new BufferedReader(new FileReader(timeFile));
-            routeIn = new BufferedReader(new FileReader(routeFile));
+            tripBufferedReader = new BufferedReader(new FileReader(tripFile));
+            stopBufferedReader = new BufferedReader(new FileReader(stopFile));
+            stopTimeBufferedReader = new BufferedReader(new FileReader(timeFile));
+            routeBufferedReader = new BufferedReader(new FileReader(routeFile));
 
 
-            fileToTable(tripIn, tripInfo);
-            fileToTable(stopIn, stopInfo);
-            fileToTable(stopTimeIn, stopTimeInfo);
-            fileToTable(routeIn, routeInfo);
-
-
+            //passes the buffered reader and Hashtable into helper method to transfer data from file to table
+            fileToTable(tripBufferedReader, tripHashtable);
+            fileToTable(stopBufferedReader, stopHashtable);
+            fileToTable(stopTimeBufferedReader, stopTimeHashtable);
+            fileToTable(routeBufferedReader, routeHashtable);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -141,38 +138,35 @@ public class Controller {
         }
 
     }
-    private void fileToTable(BufferedReader bufferIn, Hashtable<String, String> hashtable){
+
+    /**
+     * Helper method buffered reader and hashtable into helper method to transfer data from file to table
+     * @param bufferIn Buffered reader that is attatched to the gtfs csv files
+     * @param hashtable List with keys indicating the row of the file and value is a list data from one line
+     */
+    private void fileToTable(BufferedReader bufferIn, Hashtable<String, List<String>> hashtable){
         String[] elements = null;
 
         try {
             String c = bufferIn.readLine();
 
-           // while (c != null) {
-                //take each line and put into hash
-
-                //System.out.println(elements[1]);
-
-                //
-            //}
-
-            //now array is full of one line of data
-
             for(int i = 0; c != null; i++) { //for each line in doc
-                elements = c.split(",");
+                elements = c.split(","); //fills array with data from one line
 
-                for (int j = 0; j <elements.length; j++) { //for each element in one line
-                    String key = Integer.toString(i);
-                    String value = elements[j];
+                String key = Integer.toString(i); //essentially the "row"
+                List<String> oneLine = null;        //contains one line of data
 
-                    hashtable.put(key, value);
+                for (int j = 0; j <elements.length; j++) {  //for each element in one line
+                    oneLine.add(elements[j]);               //filling up list that will be put in the table
                 }
+
+                hashtable.put(key, oneLine);                //adding info at key indicating the row
                 c = bufferIn.readLine();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-       // return elements;
     }
 
     /**
