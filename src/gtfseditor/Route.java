@@ -16,24 +16,21 @@ public class Route {
 	private String route_id;
 	private String route_long_name;
 	private String route_short_name;
-	private String route_text_color;
-	private int route_type;
+	private String route_type;
 	private String route_url;
 	private ArrayList stops;
 
-	public Route(String agency_id, String route_color, String route_desc, String route_id,
-				 String route_long_name, String route_short_name, String route_text_color,
-				 int route_type, String route_url, ArrayList stops) {
+	public Route(String route_id, String agency_id, String route_short_name, String route_long_name,
+				 String route_desc, String route_type, String route_url,
+				 String route_color) {
 		this.agency_id = agency_id;
 		this.route_color = route_color;
 		this.route_desc = route_desc;
 		this.route_id = route_id;
 		this.route_long_name = route_long_name;
 		this.route_short_name = route_short_name;
-		this.route_text_color = route_text_color;
 		this.route_type = route_type;
 		this.route_url = route_url;
-		this.stops = stops;
 	}
 
 	/**
@@ -92,19 +89,11 @@ public class Route {
 		this.route_short_name = route_short_name;
 	}
 
-	public String getRoute_text_color() {
-		return route_text_color;
-	}
-
-	public void setRoute_text_color(String route_text_color) {
-		this.route_text_color = route_text_color;
-	}
-
-	public int getRoute_type() {
+	public String getRoute_type() {
 		return route_type;
 	}
 
-	public void setRoute_type(int route_type) {
+	public void setRoute_type(String route_type) {
 		this.route_type = route_type;
 	}
 

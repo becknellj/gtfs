@@ -10,8 +10,8 @@ import java.time.ZonedDateTime;
  */
 public class Trip {
 
-	private int block_id;
-	private int direction_id;
+	private String block_id;
+	private String direction_id;
 	private double distance;
 	private ZonedDateTime endTime;
 	private String route_id;
@@ -21,34 +21,30 @@ public class Trip {
 	private String trip_headsign;
 	private String trip_id;
 
-	public Trip(int block_id, int direction_id, double distance, ZonedDateTime endTime,
-				String route_id, String service_id, String shape_id,
-				ZonedDateTime startTime, String trip_headsign, String trip_id) {
+	public Trip(String route_id, String service_id, String trip_id, String trip_headsign, String direction_id,
+				String block_id, String shape_id) {
 		this.block_id = block_id;
 		this.direction_id = direction_id;
-		this.distance = distance;
-		this.endTime = endTime;
 		this.route_id = route_id;
 		this.service_id = service_id;
 		this.shape_id = shape_id;
-		this.startTime = startTime;
 		this.trip_headsign = trip_headsign;
 		this.trip_id = trip_id;
 	}
 
-	public int getBlock_id() {
+	public String getBlock_id() {
 		return block_id;
 	}
 
-	public void setBlock_id(int block_id) {
+	public void setBlock_id(String block_id) {
 		this.block_id = block_id;
 	}
 
-	public int getDirection_id() {
+	public String getDirection_id() {
 		return direction_id;
 	}
 
-	public void setDirection_id(int direction_id) {
+	public void setDirection_id(String direction_id) {
 		this.direction_id = direction_id;
 	}
 
@@ -112,9 +108,6 @@ public class Trip {
 		this.trip_id = trip_id;
 	}
 
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * 

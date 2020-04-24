@@ -4,6 +4,7 @@ package gtfseditor;
 import gtfseditor.Route;
 
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,22 +16,14 @@ public class Application {
 
 	protected Hashtable<String, Route> routes;
 	protected Hashtable<String,Stop> stops;
-	protected Hashtable<String, StopTime> stopTimes;
+	protected Hashtable<String, LinkedList<StopTime>> stopTimes;
 	protected Hashtable<String, Trip> trips;
-	public Trip m_Trip;
-	public StopTime m_StopTime;
-	public Stop m_Stop;
-	public Route m_Route;
 
 	public Application(){
 		this.trips = new Hashtable<String, Trip>();
 		this.stops = new Hashtable<String, Stop>();
-		this.stopTimes = new Hashtable<String, StopTime>();
+		this.stopTimes = new Hashtable<String, LinkedList<StopTime>>();
 		this.routes = new Hashtable<String, Route>();
-	}
-
-	public void finalize() throws Throwable {
-
 	}
 
 	/**

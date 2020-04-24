@@ -8,7 +8,6 @@ package gtfseditor;
  */
 public class Stop {
 
-	private String level_id;
 	private String stop_desc;
 	private String stop_id;
 	private double stop_lat;
@@ -16,23 +15,14 @@ public class Stop {
 	private String stop_name;
 	private int tripNumber;
 
-	public Stop(String level_id, String stop_desc, String stop_id, double stop_lat,
-				double stop_long, String stop_name, int tripNumber) {
-		this.level_id = level_id;
+	public Stop(String stop_id, String stop_name, String stop_desc,
+				double stop_lat, double stop_long) {
+
 		this.stop_desc = stop_desc;
 		this.stop_id = stop_id;
 		this.stop_lat = stop_lat;
 		this.stop_long = stop_long;
 		this.stop_name = stop_name;
-		this.tripNumber = tripNumber;
-	}
-
-	public void finalize() throws Throwable {
-
-	}
-
-	public String getLevel_id() {
-		return level_id;
 	}
 
 	public String getStop_desc() {
@@ -57,10 +47,6 @@ public class Stop {
 
 	public int getTripNumber() {
 		return tripNumber;
-	}
-
-	public void setLevel_id(String level_id) {
-		this.level_id = level_id;
 	}
 
 	public void setStop_desc(String stop_desc) {
