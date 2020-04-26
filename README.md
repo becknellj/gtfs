@@ -38,3 +38,7 @@ General Transit Feed Specification (GTFS) Static is a flat file format for speci
     4. routes.tx
 
 # Change Log
+
+| Lab |Dates| Changes Made|  
+|-----|------|:---------------------------------------------------------------------------------|
+| 6   | 4/23 - 4/28|- JUnit testing added with summaries <br>- Implemented feature 3 <br>- Implemented feature 12 <br>- Updated data structure for file import <br>- Added imput validation functionality <br>- READ.md file updated <br>|
