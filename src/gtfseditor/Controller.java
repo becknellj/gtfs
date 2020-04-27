@@ -9,6 +9,7 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.sql.SQLOutput;
+import java.text.ParseException;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
@@ -35,6 +36,8 @@ public class Controller {
     CheckBox tripCheck;
     @FXML
     CheckBox routeCheck;
+    @FXML
+    TextArea textArea1;
 
     @FXML
     public void openStopsFile(ActionEvent event){
@@ -285,6 +288,21 @@ public class Controller {
                 "There are:\n" + GTFSeditor.routes.size() + " routes\n");
     }
 
+    @FXML
+    public void tripSpeeds(){
+        try{
+            //reset area
+            textArea1.setText("");
+            //set to list of speeds
+            textArea1.setText(GTFSeditor.displayAllTripSpeed());
+        } catch (ParseException e){
+            throwAlert("Parse exception", "Error parsing stop time");
+        } //catch (NullPointerException e){
+         //   throwAlert("Null Pointer Exception",
+           //         "Make sure files are imported into the application before" +
+             //               " requesting average trip speeds");
+        //}
+    }
 
     /**
      * Presents an alert containing exception information
