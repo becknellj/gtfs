@@ -25,7 +25,7 @@ public class Controller {
     File selectedStopFile = null;
 
     //Main instance of the application
-    Application GTFSeditor = new Application();
+    public static Application GTFSeditor = new Application();
 
     //FXML objects
     @FXML
@@ -129,6 +129,9 @@ public class Controller {
         } catch (NullPointerException e){
             throwAlert("NullPointerException", "There were troubles importing, " +
                     "make sure four files were selected.");
+        } catch (FileNotFoundException e){
+            throwAlert("FileNotFound", "There was an error finding a file make " +
+                    "sure paths are correct and the file is still there.");
         }
         reset();
     }
@@ -154,9 +157,8 @@ public class Controller {
      * @param stopFile file with stop information
      * @param timeFile file with stop time information
      */
-    private void parseFiles(File tripFile,File routeFile,File stopFile,File timeFile) throws NullPointerException{
+    public void parseFiles(File tripFile,File routeFile,File stopFile,File timeFile) throws NullPointerException, FileNotFoundException{
 
-        try{
             BufferedReader tripBufferedReader = new BufferedReader(new FileReader(tripFile));
             BufferedReader stopBufferedReader = new BufferedReader(new FileReader(stopFile));
             BufferedReader stopTimeBufferedReader = new BufferedReader(new FileReader(timeFile));
@@ -169,12 +171,6 @@ public class Controller {
             fileToStops(stopBufferedReader, stopFile.getName());
             fileToStopTimes(stopTimeBufferedReader, timeFile.getName());
             fileToRoutes(routeBufferedReader, routeFile.getName());
-        } catch (FileNotFoundException e) {
-            throwAlert("FileNotFoundException", "There was an issue finding a file");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 
@@ -202,7 +198,7 @@ public class Controller {
         }
     }
 
-    private void fileToTrips (BufferedReader bufferIn, String fileName){
+    public void fileToTrips (BufferedReader bufferIn, String fileName){
         String[] elements = null;
         try {
             String c = bufferIn.readLine();
@@ -297,11 +293,11 @@ public class Controller {
             textArea1.setText(GTFSeditor.displayAllTripSpeed());
         } catch (ParseException e){
             throwAlert("Parse exception", "Error parsing stop time");
-        } //catch (NullPointerException e){
-         //   throwAlert("Null Pointer Exception",
-           //         "Make sure files are imported into the application before" +
-             //               " requesting average trip speeds");
-        //}
+        } catch (NullPointerException e){
+            throwAlert("Null Pointer Exception",
+                    "Make sure files are imported into the application before" +
+                            " requesting average trip speeds");
+        }
     }
 
     /**
