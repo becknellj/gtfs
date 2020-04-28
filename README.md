@@ -41,4 +41,4 @@ General Transit Feed Specification (GTFS) Static is a flat file format for speci
 
 | Lab |Dates| Changes Made|  
 |-----|------|:---------------------------------------------------------------------------------|
-| 6   | 4/23 - 4/28|- JUnit testing added with summaries <br>- Implemented feature 3 <br>- Implemented feature 12 <br>- Updated data structure for file import <br>- Added imput validation functionality <br>- READ.md file updated <br>|
+| 6   | 4/23 - 4/28|<ul><li>JUnit testing added with summaries</li><li>Implemented feature 3</li><li>Implemented feature 12<ul><li>Nested One</li></ul></li> Updated data structure for file import</li> Added imput validation functionality</ul>
