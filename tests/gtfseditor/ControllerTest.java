@@ -20,6 +20,10 @@ class ControllerTest {
     File f1;
     File f2;
     File f3;
+    File f4;
+    File f5;
+    File f6;
+    File f7;
     File testStop;
     File testRoute;
     File testTrip;
