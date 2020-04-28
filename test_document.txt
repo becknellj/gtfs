@@ -1,0 +1,30 @@
+
+
+Below are the tests for the parseFiles method
+written by: Andrew Nebel
+One test that null pointer is thrown
+The other tests file not found is thrown
+
+Andrew Nebel
+This test makes sure that if there is no file to parse
+that it is thrown up to the importFiles method so that
+an alert is thrown to the user.
+void parseFilesNullPointer();
+
+Andrew Nebel
+This test makes sure that if there are files that do not exist to parse
+that it is thrown up to the importFiles method so that
+an alert is thrown to the user.
+void parseFilesFileNotFound(){
+
+
+
+Below are the tests for the filesToTrips method
+written by: Andrew Nebel
+One tests that the info parsed from the file is in an object and is correct
+
+Andrew Nebel
+This test makes sure trips are successfully put into the application
+hashtable and that their info is the same as excepted based on the
+.txt file they are in
+void filesToTripsEqualTrip(){
