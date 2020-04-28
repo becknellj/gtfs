@@ -131,11 +131,11 @@ public class Application {
 	}
 
 
-
-
-
-
-
+	/**This method takes all of the trips currently in the trips hash
+	 * table and calculates the average speed of the trip
+	 * @return String of all the trip ids and their avg speed
+	 * @throws ParseException
+	 */
 	public String displayAllTripSpeed() throws ParseException{
 		//first stop time
 		String timeFirst;
