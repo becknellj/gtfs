@@ -36,6 +36,10 @@ class ControllerTest {
         f1 = new File("text.txt");
         f2 = new File("../../trips.txt");
         f3 = new File("C:\\Users\\becknellj\\Documents\\GTFS_MCTS\\stop_times.txt");
+        f4 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/routes.txt");
+        f5 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/stop_times.txt");
+        f6 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/stops.txt");
+        f7 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/trips.txt");
         testTimes = new LinkedList<>();
         a = new StopTime("21736564_2535", "08:52:00", "08:52:00", "4664", "2", "", "0", "0");
         b = new StopTime("21736564_2535", "08:52:00", "08:52:00", "4664", "2", "", "0", "0");
@@ -85,6 +89,34 @@ class ControllerTest {
         } catch (FileNotFoundException e) {
             e.getMessage();
         }
+    }
+    // Daniel Griffith
+    // This test checks input validation on import files
+    // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
+    // i.e. stops.txt being imported as routes.txt
+    @Test
+    void fileImportInputValidationTest() {
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    c1.parseFiles(f7,f4,f6,f4);
+                });
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    c1.parseFiles(f7,f5,f6,f5);
+                });
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    c1.parseFiles(f7,f4,f4,f5);
+                });
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    c1.parseFiles(f6,f4,f6,f5);
+                });
+
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    c1.parseFiles(f4,f4,f4,f4);
+                });
     }
 
     /**
