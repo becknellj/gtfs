@@ -132,6 +132,8 @@ public class Controller {
         } catch (FileNotFoundException e){
             throwAlert("FileNotFound", "There was an error finding a file make " +
                     "sure paths are correct and the file is still there.");
+        } catch (IllegalArgumentException e) {
+            throwAlert("File formatting error", "Check file formatting");
         }
         reset();
     }
@@ -157,7 +159,7 @@ public class Controller {
      * @param stopFile file with stop information
      * @param timeFile file with stop time information
      */
-    public void parseFiles(File tripFile,File routeFile,File stopFile,File timeFile) throws NullPointerException, FileNotFoundException{
+    public void parseFiles(File tripFile,File routeFile,File stopFile,File timeFile) throws NullPointerException, FileNotFoundException, IllegalArgumentException {
 
             BufferedReader tripBufferedReader = new BufferedReader(new FileReader(tripFile));
             BufferedReader stopBufferedReader = new BufferedReader(new FileReader(stopFile));
@@ -174,10 +176,27 @@ public class Controller {
     }
 
 
-    private void fileToStops (BufferedReader bufferIn, String fileName){
+    private void fileToStops (BufferedReader bufferIn, String fileName) throws IllegalArgumentException {
         String[] elements = null;
+        String[] validParamters = {"stop_id","stop_code","stop_name","stop_desc","stop_lat","stop_lon","zone_id","stop_url",
+                "location_type","parent_station","stop_timezone","wheelchair_boarding","level_id","platform_code"};
         try {
             String c = bufferIn.readLine();
+            elements = c.split(",");
+            // data valiation
+            for(String element : elements) {
+                boolean validParameter = false;
+                for(String valid : validParamters) {
+                    if(element.equals(valid)) {
+                        validParameter = true;
+                    }
+                }
+                if(!validParameter) {
+                    throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                }
+            }
+
+
             System.out.println("\n\nImporting: "+ fileName);
 
             for(int i = 0; c != null; i++) { //for each line in doc
