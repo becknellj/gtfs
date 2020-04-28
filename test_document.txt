@@ -28,3 +28,36 @@ This test makes sure trips are successfully put into the application
 hashtable and that their info is the same as excepted based on the
 .txt file they are in
 void filesToTripsEqualTrip(){
+
+
+
+     * TESTS FOR FEATURE 12
+     * Author: Jade Becknell
+     * 1) making sure that user input is reflected in data structure (when everything is valid
+     * 2) making sure that invalid input for trip_id is handles
+     * 3) making sure that invalid attribute data is handles
+     */
+    //
+
+    /**
+     *  1 of 3
+     *  This test makes sure that the user cannot successfully enter invalid attribute values
+     */
+    @Test
+    void inputEqualsAttributeData() {
+
+        /**
+         * 2 of 3
+         * This tests to make sure that a user can't update a stop time with invalid input
+         * checks for invalid trip id, time input, and stop sequence
+         */
+        @Test
+        void invalidAttributeInput()
+
+     /**
+          * 3 of 3
+          * This test makes sure the user cannot successfully enter an invalid trip id
+          * to specify which stop time group they would like to edit
+          */
+         @Test
+         void testInvalidTripIdSearch() {
