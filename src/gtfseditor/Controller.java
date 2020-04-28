@@ -55,8 +55,6 @@ public class Controller {
     @FXML
     RadioMenuItem trip_id;
     @FXML
-    Menu updateMenu;
-    @FXML
     ToggleGroup timeUpdateGroup;
     @FXML
     TextField timeTextField;
