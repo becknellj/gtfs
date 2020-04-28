@@ -22,7 +22,7 @@ public class Controller {
     File selectedStopFile = null;
 
     //Main instance of the application
-    Application GTFSeditor = new Application();
+    static Application GTFSeditor = new Application();
 
     //FXML objects
     @FXML
@@ -195,7 +195,7 @@ public class Controller {
      * @param stopFile  file with stop information
      * @param timeFile  file with stop time information
      */
-    private void parseFiles(File tripFile, File routeFile, File stopFile, File timeFile) throws NullPointerException {
+    void parseFiles(File tripFile, File routeFile, File stopFile, File timeFile) throws NullPointerException {
 
         try {
             BufferedReader tripBufferedReader = new BufferedReader(new FileReader(tripFile));
@@ -280,12 +280,13 @@ public class Controller {
         }
     }
 
-    String[] timeElements = null;
     //ArrayList timeKeys = new ArrayList();
 
-    private void fileToStopTimes(BufferedReader bufferIn, String fileName) {
+    public void fileToStopTimes(BufferedReader bufferIn, String fileName) {
         String[] validParamters = {"trip_id","arrival_time","departure_time","stop_id","stop_sequence","stop_headsign","pickup_type",
                 "drop_off_type", "shape_dist_travel","timepoint"};
+        String[] timeElements;
+
         try {
             String c = bufferIn.readLine();
             timeElements = c.split(",");
@@ -434,6 +435,7 @@ public class Controller {
         }
         if (stop_sequence.isSelected()) {
             toField = "Enter new stop sequence:\n";
+            format = "integer value";
         }
         if (trip_id.isSelected()) {
             toField = "Enter new trip id:\n";
@@ -515,7 +517,8 @@ public class Controller {
         } catch (NumberFormatException E) {
             throwAlert("NumberFormatExeption", "Enter valid update data");
         } catch (NullPointerException E) {
-            throwAlert("NullPointerException", "Enter valid update data");
+            throwAlert("NullPointerException", "Enter valid tripId");
+            E.printStackTrace();
         } catch (DateTimeParseException e) {
             throwAlert("DateTimeParseException", "Enter a valid time");
         } catch (Exception E) {

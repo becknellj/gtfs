@@ -2,11 +2,13 @@ package gtfseditor;
 
 
 import java.sql.Time;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 import java.util.LinkedList;
 
 /**
@@ -74,6 +76,7 @@ public class StopTime {
     }
 
     public void setStop_sequence(String stop_sequence) {
+        Integer.parseInt(stop_sequence); //to check for invalid input
         this.stop_sequence = stop_sequence;
     }
 
@@ -82,6 +85,7 @@ public class StopTime {
     }
 
     public void setTrip_id(String trip_id) {
+        checkIdInput(trip_id);
         this.trip_id = trip_id;
     }
 
@@ -90,6 +94,7 @@ public class StopTime {
     }
 
     public void setArrival_time(String arrival_time) {
+        LocalTime.parse(arrival_time);
         this.arrival_time = arrival_time;
     }
 
@@ -98,6 +103,7 @@ public class StopTime {
     }
 
     public void setDeparture_time(String departure_time) {
+        LocalTime.parse(departure_time);
         this.departure_time = departure_time;
     }
 
@@ -157,6 +163,18 @@ public class StopTime {
 
         } catch (NumberFormatException e) {
             Controller.throwInfoAlert("NumberFormatException", "Invalid input");
+        }
+    }
+
+    void checkIdInput(String userInput) {
+        if (userInput.length() != 13) {
+            throw new NullPointerException();
+        }
+        if (!userInput.contains("_")) {
+            throw new NullPointerException();
+        }
+        if (userInput.charAt(8) != '_') {
+            throw new NullPointerException();
         }
     }
 }
