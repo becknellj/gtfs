@@ -3,12 +3,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gtfseditor.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="323.0" prefWidth="448.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gtfseditor.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -16,8 +21,38 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane prefHeight="327.0" prefWidth="448.0">
+      <Pane prefHeight="375.0" prefWidth="448.0">
          <children>
+            <MenuButton fx:id="updateMenuButton" layoutX="241.0" layoutY="128.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Update">
+              <items>
+                  <Menu fx:id="updateStopTimesMenu" mnemonicParsing="false" text="Stop Times">
+                    <items>
+                        <Menu mnemonicParsing="false" text="arival time updates">
+                          <items>
+                              <RadioMenuItem fx:id="arrivalTimeForwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift forwards">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="timeUpdateGroup" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem fx:id="arrivalTimeBackwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift backwards" toggleGroup="$timeUpdateGroup" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="departure time updates">
+                          <items>
+                              <RadioMenuItem fx:id="departureTimeForward" mnemonicParsing="false" onAction="#updateStopTimes" text="shift forwards" toggleGroup="$timeUpdateGroup" />
+                              <RadioMenuItem fx:id="departureTimeBackwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift backwards" toggleGroup="$timeUpdateGroup" />
+                          </items>
+                        </Menu>
+                        <RadioMenuItem fx:id="drop_off_type" mnemonicParsing="false" onAction="#updateStopTimes" text="drop_off_type" toggleGroup="$timeUpdateGroup" />
+                        <RadioMenuItem fx:id="pickup_type" mnemonicParsing="false" onAction="#updateStopTimes" text="pickup_type" toggleGroup="$timeUpdateGroup" />
+                        <RadioMenuItem fx:id="stop_headsign" mnemonicParsing="false" onAction="#updateStopTimes" text="stop_headsign" toggleGroup="$timeUpdateGroup" />
+                        <RadioMenuItem fx:id="stop_id" mnemonicParsing="false" onAction="#updateStopTimes" text="stop_id" toggleGroup="$timeUpdateGroup" />
+                        <RadioMenuItem fx:id="stop_sequence" mnemonicParsing="false" onAction="#updateStopTimes" text="stop_sequence" toggleGroup="$timeUpdateGroup" />
+                        <RadioMenuItem fx:id="trip_id" mnemonicParsing="false" onAction="#updateStopTimes" text="trip_id" toggleGroup="$timeUpdateGroup" />
+                    </items>
+                  </Menu>
+              </items>
+            </MenuButton>
             <Label layoutX="12.0" layoutY="25.0" prefHeight="17.0" prefWidth="233.0" text="Select each .txt file in the FTFS file:" />
             <Button fx:id="importButton" layoutX="14.0" layoutY="128.0" mnemonicParsing="false" onAction="#importFiles" text="Import" />
             <Button fx:id="displayButton" layoutX="156.0" layoutY="128.0" mnemonicParsing="false" onAction="#display" text="Display" />
@@ -32,6 +67,13 @@
             <CheckBox fx:id="stopTimeCheck" disable="true" layoutX="269.0" layoutY="83.0" mnemonicParsing="false" />
             <CheckBox fx:id="routeCheck" disable="true" layoutX="380.0" layoutY="83.0" mnemonicParsing="false" />
             <Button layoutX="84.0" layoutY="128.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="54.0" text="Reset" />
+            <TextField fx:id="timeTextField" alignment="TOP_LEFT" layoutX="14.0" layoutY="207.0" prefHeight="25.0" prefWidth="144.0" visible="false" />
+            <Label fx:id="instrLabel" layoutX="14.0" layoutY="190.0" text="info" visible="false" />
+            <Button fx:id="enterButton" disable="true" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" onAction="#enterUpdate" text="Enter" visible="false" />
+            <Label fx:id="instrLabel1" layoutX="14.0" layoutY="239.0" text="Enter trip id of group:" visible="false" />
+            <TextField fx:id="timeTextField1" alignment="TOP_LEFT" layoutX="14.0" layoutY="256.0" prefHeight="25.0" prefWidth="144.0" visible="false" />
+            <Label fx:id="formatLabel" layoutX="164.0" layoutY="203.0" prefHeight="25.0" prefWidth="144.0" text="FORMAT" visible="false" />
+            <Label fx:id="tripIdFormat" layoutX="164.0" layoutY="260.0" text="tripIdFormat" visible="false" />
          </children>
       </Pane>
    </children>
