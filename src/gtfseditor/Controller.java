@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.text.ParseException;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
@@ -70,6 +71,11 @@ public class Controller {
     Label formatLabel;
     @FXML
     Label tripIdFormat;
+    @FXML
+    TextArea textArea1;
+    @FXML
+    Button tripSpeedButton;
+
 
     @FXML
     public void openStopsFile(ActionEvent event) {
@@ -235,14 +241,29 @@ public class Controller {
         }
     }
 
-    private void fileToTrips(BufferedReader bufferIn, String fileName) {
+    public void fileToTrips (BufferedReader bufferIn, String fileName){
         String[] elements = null;
+        String[] validParamters = {"route_id","service_id","trip_id","trip_headsign","trip_short_name","direction_id","block_id","shape_id",
+                "wheelchair_accessible","bikes_allowed"};
         try {
-            String c = bufferIn.readLine();
-            System.out.println("\n\nImporting: " + fileName);
 
-            for (int i = 0; c != null; i++) { //for each line in doc
-                if (i != 0) { //skip first line, no info to import
+            String c = bufferIn.readLine();
+            elements = c.split(",");
+            for(String element : elements) {
+                boolean validParameter = false;
+                for(String valid : validParamters) {
+                    if(element.equals(valid)) {
+                        validParameter = true;
+                    }
+                }
+                if(!validParameter) {
+                    throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                }
+            }
+            System.out.println("\n\nImporting: "+ fileName);
+
+            for(int i = 0; c != null; i++) { //for each line in doc
+                if(i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
                     //create new trip
                     Trip newTrip = new Trip(elements[0], elements[1], elements[2], elements[3],
@@ -263,8 +284,22 @@ public class Controller {
     //ArrayList timeKeys = new ArrayList();
 
     private void fileToStopTimes(BufferedReader bufferIn, String fileName) {
+        String[] validParamters = {"trip_id","arrival_time","departure_time","stop_id","stop_sequence","stop_headsign","pickup_type",
+                "drop_off_type", "shape_dist_travel","timepoint"};
         try {
             String c = bufferIn.readLine();
+            timeElements = c.split(",");
+            for(String element : timeElements) {
+                boolean validParameter = false;
+                for(String valid : validParamters) {
+                    if(element.equals(valid)) {
+                        validParameter = true;
+                    }
+                }
+                if(!validParameter) {
+                    throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                }
+            }
             System.out.println("\n\nImporting: " + fileName);
 
             for (int i = 0; c != null; i++) { //for each line in doc
@@ -295,6 +330,8 @@ public class Controller {
 
     private void fileToRoutes(BufferedReader bufferIn, String fileName) {
         String[] elements = null;
+        String[] validParamters = {"route_id","agency_id","route_short_name","route_long_name","route_desc","route_type",
+                "route_url","route_color", "route_text_color","route_sort_order"};
         try {
             String c = bufferIn.readLine();
             System.out.println("\n\nImporting: " + fileName);
@@ -325,6 +362,22 @@ public class Controller {
                         "There are:\n" + GTFSeditor.routes.size() + " routes\n");
     }
 
+    @FXML
+    public void tripSpeeds(){
+        try{
+            //reset area
+            textArea1.setText("");
+            //set to list of speeds
+            textArea1.setText(GTFSeditor.displayAllTripSpeed());
+        } catch (ParseException e){
+            throwAlert("Parse exception", "Error parsing stop time");
+        } catch (NullPointerException e){
+            throwAlert("Null Pointer Exception",
+                    "Make sure files are imported into the application before" +
+                            " requesting average trip speeds");
+        }
+    }
+
     //this method takes the selected item that they want to update and makes data entry visible
     @FXML
     public void updateStopTimes() {
@@ -342,6 +395,10 @@ public class Controller {
         enterButton.visibleProperty().setValue(true);
         formatLabel.visibleProperty().setValue(true);
         tripIdFormat.visibleProperty().setValue(true);
+        textArea1.visibleProperty().setValue(false);
+        tripSpeedButton.visibleProperty().setValue(false);
+
+
         tripIdFormat.setText("Format: '12345678_9ABC'");
 
         if (arrivalTimeForwards.isSelected()) {
@@ -451,6 +508,9 @@ public class Controller {
             enterButton.visibleProperty().setValue(false);
             formatLabel.visibleProperty().setValue(false);
             tripIdFormat.visibleProperty().setValue(false);
+
+            textArea1.visibleProperty().setValue(true);
+            tripSpeedButton.visibleProperty().setValue(true);
 
         } catch (NumberFormatException E) {
             throwAlert("NumberFormatExeption", "Enter valid update data");
