@@ -219,8 +219,23 @@ public class Controller {
 
     public void fileToTrips (BufferedReader bufferIn, String fileName){
         String[] elements = null;
+        String[] validParamters = {"route_id","service_id","trip_id","trip_headsign","trip_short_name","direction_id","block_id","shape_id",
+                "wheelchair_accessible","bikes_allowed"};
         try {
+
             String c = bufferIn.readLine();
+            elements = c.split(",");
+            for(String element : elements) {
+                boolean validParameter = false;
+                for(String valid : validParamters) {
+                    if(element.equals(valid)) {
+                        validParameter = true;
+                    }
+                }
+                if(!validParameter) {
+                    throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                }
+            }
             System.out.println("\n\nImporting: "+ fileName);
 
             for(int i = 0; c != null; i++) { //for each line in doc
@@ -243,8 +258,22 @@ public class Controller {
 
     private void fileToStopTimes (BufferedReader bufferIn, String fileName){
         String[] elements = null;
+        String[] validParamters = {"trip_id","arrival_time","departure_time","stop_id","stop_sequence","stop_headsign","pickup_type",
+                "drop_off_type", "shape_dist_travel","timepoint"};
         try {
             String c = bufferIn.readLine();
+            elements = c.split(",");
+            for(String element : elements) {
+                boolean validParameter = false;
+                for(String valid : validParamters) {
+                    if(element.equals(valid)) {
+                        validParameter = true;
+                    }
+                }
+                if(!validParameter) {
+                    throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                }
+            }
             System.out.println("\n\nImporting: "+ fileName);
 
             for(int i = 0; c != null; i++) { //for each line in doc
@@ -273,6 +302,8 @@ public class Controller {
 
     private void fileToRoutes (BufferedReader bufferIn, String fileName){
         String[] elements = null;
+        String[] validParamters = {"route_id","agency_id","route_short_name","route_long_name","route_desc","route_type",
+                "route_url","route_color", "route_text_color","route_sort_order"};
         try {
             String c = bufferIn.readLine();
             System.out.println("\n\nImporting: "+ fileName);
