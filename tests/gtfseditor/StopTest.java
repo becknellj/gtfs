@@ -16,17 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class StopTest {
 
     Stop stop;
-    stop_id a;
-    stop_id b;
-    stop_id c;
+    String a;
+    String b;
+    String c;
 
 
     @BeforeEach
     void setUp() {
-        stop = new Stop();
         a = "";
         b = null;
-        c = "Milwaukee St."
+        c = "Milwaukee St.";
     }
 
     @AfterEach
@@ -36,14 +35,13 @@ class StopTest {
     @Test
     void getStop_desc() {
         assertNull(a);
-        assertNoNull();
-
+      //  assertNoNull();
     }
 
     @Test
     void getStop_id() {
-        assertNull();
-        assertNoNull();
+      //  assertNull();
+      //  assertNoNull();
     }
 
 }

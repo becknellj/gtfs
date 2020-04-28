@@ -74,3 +74,4 @@ void filesToTripsEqualTrip(){
              void fileImportInputValidationTest()
 
 
+Code coverage gtfseditor: class 37%, method 7%, line 5%
