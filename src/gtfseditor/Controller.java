@@ -36,13 +36,9 @@ public class Controller {
     @FXML
     MenuButton updateMenuButton;
     @FXML
-    RadioMenuItem arrivalTimeForwards;
+    RadioMenuItem timeForwards;
     @FXML
-    RadioMenuItem departureTimeForward;
-    @FXML
-    RadioMenuItem arrivalTimeBackwards;
-    @FXML
-    RadioMenuItem departureTimeBackwards;
+    RadioMenuItem timeBackwards;
     @FXML
     RadioMenuItem drop_off_type;
     @FXML
@@ -430,22 +426,15 @@ public class Controller {
 
         tripIdFormat.setText("Format: '12345678_9ABC'");
 
-        if (arrivalTimeForwards.isSelected()) {
-            toField = "Enter amount to shift forward arrival time:";
+        if (timeForwards.isSelected()) {
+            toField = "Enter amount to shift forward arrival and departure times:";
             format = "HH:MM:SS";
         }
-        if (arrivalTimeBackwards.isSelected()) {
-            toField = "Enter amount to shift back arrival time:";
+        if (timeBackwards.isSelected()) {
+            toField = "Enter amount to shift back arrival and departure times:";
             format = "HH:MM:SS";
         }
-        if (departureTimeForward.isSelected()) {
-            toField = "Enter amount to shift forward departure time:";
-            format = "'HH:MM:SS'";
-        }
-        if (departureTimeBackwards.isSelected()) {
-            toField = "Enter amount to shift back departure time:";
-            format = "'HH:MM:SS'";
-        }
+
         if (drop_off_type.isSelected()) {
             toField = "Enter new drop off type:\n";
         }
@@ -488,21 +477,13 @@ public class Controller {
             int timeListSize = times_with_common_trip.size();
 
             //TODO
-            if (arrivalTimeForwards.isSelected()) {
+            if (timeForwards.isSelected()) {
                 for (int i = 0; i < timeListSize; i++) {
-                    StopTime.timeShift(updateInfo, times_with_common_trip, "arrival", "f", i);
+                    StopTime.timeShift(updateInfo, times_with_common_trip,  "f", i);
                 }
-            } else if (arrivalTimeBackwards.isSelected()) {
+            } else if (timeBackwards.isSelected()) {
                 for (int i = 0; i < timeListSize; i++) {
-                    StopTime.timeShift(updateInfo, times_with_common_trip, "arrival", "b", i);
-                }
-            } else if (departureTimeForward.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    StopTime.timeShift(updateInfo, times_with_common_trip, "departure", "f", i);
-                }
-            } else if (departureTimeBackwards.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    StopTime.timeShift(updateInfo, times_with_common_trip, "departure", "b", i);
+                    StopTime.timeShift(updateInfo, times_with_common_trip,  "b", i);
                 }
             } else if (drop_off_type.isSelected()) {
                 for (int i = 0; i < timeListSize; i++) {
@@ -546,7 +527,6 @@ public class Controller {
             throwAlert("NumberFormatExeption", "Enter valid update data");
         } catch (NullPointerException E) {
             throwAlert("NullPointerException", "Enter valid tripId");
-            E.printStackTrace();
         } catch (DateTimeParseException e) {
             throwAlert("DateTimeParseException", "Enter a valid time");
         } catch (Exception E) {
