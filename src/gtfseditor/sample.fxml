@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" prefHeight="323.0" prefWidth="500.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gtfseditor.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="323.0" prefWidth="500.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gtfseditor.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -28,20 +28,14 @@
               <items>
                   <Menu fx:id="updateStopTimesMenu" mnemonicParsing="false" text="Stop Times">
                     <items>
-                        <Menu mnemonicParsing="false" text="arival time updates">
+                        <Menu mnemonicParsing="false" text="time updates">
                           <items>
-                              <RadioMenuItem fx:id="arrivalTimeForwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift forwards">
+                              <RadioMenuItem fx:id="timeForwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift forwards">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="timeUpdateGroup" />
                                  </toggleGroup>
                               </RadioMenuItem>
-                              <RadioMenuItem fx:id="arrivalTimeBackwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift backwards" toggleGroup="$timeUpdateGroup" />
-                          </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="departure time updates">
-                          <items>
-                              <RadioMenuItem fx:id="departureTimeForward" mnemonicParsing="false" onAction="#updateStopTimes" text="shift forwards" toggleGroup="$timeUpdateGroup" />
-                              <RadioMenuItem fx:id="departureTimeBackwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift backwards" toggleGroup="$timeUpdateGroup" />
+                              <RadioMenuItem fx:id="timeBackwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift backwards" toggleGroup="$timeUpdateGroup" />
                           </items>
                         </Menu>
                         <RadioMenuItem fx:id="drop_off_type" mnemonicParsing="false" onAction="#updateStopTimes" text="drop_off_type" toggleGroup="$timeUpdateGroup" />
