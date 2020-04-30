@@ -107,7 +107,7 @@ public class StopTime {
         this.departure_time = departure_time;
     }
 
-    protected static void timeShift(String userInput, LinkedList<StopTime> times_with_common_trip, String timeType, String direction, int index) {
+    protected static void timeShift(String userInput, LinkedList<StopTime> times_with_common_trip,  String direction, int index) {
 
         try {
             LocalTime.parse(userInput); //throws exception to check format
@@ -121,41 +121,36 @@ public class StopTime {
             //if going moving time up
             if (direction.equals("f")) {
                 //if moving arrival time
-                if (timeType.equals("arrival")) {
                     b = LocalTime.parse(times_with_common_trip.get(index).getArrival_time());
                     b = b.plusSeconds(seconds);
                     b = b.plusMinutes(minutes);
                     b = b.plusHours(hours);
                     times_with_common_trip.get(index).setArrival_time(b.toString());
-                }
+
                 //if moving departure time
-                else if (timeType.equals("departure")) {
                     b = LocalTime.parse(times_with_common_trip.get(index).getDeparture_time());
                     b = b.plusSeconds(seconds);
                     b = b.plusMinutes(minutes);
                     b = b.plusHours(hours);
                     times_with_common_trip.get(index).setDeparture_time(b.toString());
-                }
+
             }
             //if moving time back
             else if (direction.equals("b")) {
                 //departure
-                if (timeType.equals("departure")) {
                     b = LocalTime.parse(times_with_common_trip.get(index).getDeparture_time());
                     b = b.minusSeconds(seconds);
                     b = b.minusMinutes(minutes);
                     b = b.minusHours(hours);
                     times_with_common_trip.get(index).setDeparture_time(b.toString());
 
-                }
                 //arrival
-                else if (timeType.equals("arrival")) {
                     b = LocalTime.parse(times_with_common_trip.get(index).getArrival_time());
                     b = b.minusSeconds(seconds);
                     b = b.minusMinutes(minutes);
                     b = b.minusHours(hours);
                     times_with_common_trip.get(index).setArrival_time(b.toString());
-                }
+
             }
 
         } catch (NullPointerException e) {
