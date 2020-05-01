@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import static gtfseditor.StopTime.timeShift;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ControllerTest {
+class Feature12Test {
 
     Controller c1;
     Application GTFS;
@@ -56,72 +56,9 @@ class ControllerTest {
     }
 
 
-    //Andrew Nebel
-    //This test makes sure that if there is no file to parse
-    //that it is thrown up to the importFiles method so that
-    //an alert is thrown to the user.
-    @Test
-    void parseFilesNullPointer() {
-        assertThrows(NullPointerException.class,
-                () -> {
-                    c1.parseFiles(null, null, null, null);
-                });
-    }
 
-    //Andrew Nebel
-    //This test makes sure that if there are files that do not exist to parse
-    //that it is thrown up to the importFiles method so that
-    //an alert is thrown to the user.
-    @Test
-    void parseFilesFileNotFound() {
-        assertThrows(FileNotFoundException.class,
-                () -> {
-                    c1.parseFiles(f1, f1, f1, f1);
-                });
-    }
 
-    //Andrew Nebel
-    //This test makes sure trips are successfully put into the application
-    //hashtable and that their info is the same as excepted based on the
-    //.txt file they are in
-    @Test
-    void filesToTripsEqualTrip() {
-        try {
-            BufferedReader b1 = new BufferedReader(new FileReader(f2));
-            c1.fileToTrips(b1, "trips.txt");
-            assertEquals("64", Controller.GTFSeditor.trips.get("21736564_2535").getRoute_id());
-        } catch (FileNotFoundException e) {
-            e.getMessage();
-        }
-    }
-    // Daniel Griffith
-    // This test checks input validation on import files
-    // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
-    // i.e. stops.txt being imported as routes.txt
-    @Test
-    void fileImportInputValidationTest() {
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    c1.parseFiles(f7,f4,f6,f4);
-                });
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    c1.parseFiles(f7,f5,f6,f5);
-                });
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    c1.parseFiles(f7,f4,f4,f5);
-                });
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    c1.parseFiles(f6,f4,f6,f5);
-                });
 
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    c1.parseFiles(f4,f4,f4,f4);
-                });
-    }
 
     /**
      * TESTS FOR FEATURE 12
