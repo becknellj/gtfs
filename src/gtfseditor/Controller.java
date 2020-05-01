@@ -71,6 +71,8 @@ public class Controller {
     TextArea textArea1;
     @FXML
     Button tripSpeedButton;
+    @FXML
+    Button tripDistanceButton;
 
 
     @FXML
@@ -403,6 +405,22 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void tripDistances(){
+        try{
+            //reset area
+            textArea1.setText("");
+            //set to list of speeds
+            textArea1.setText(GTFSeditor.displayAllTripDistance());
+        } catch (ParseException e){
+            throwAlert("Parse exception", "Error parsing stop time");
+        } catch (NullPointerException e){
+            throwAlert("Null Pointer Exception",
+                    "Make sure files are imported into the application before" +
+                            " requesting trip distances");
+        }
+    }
+
     //this method takes the selected item that they want to update and makes data entry visible
     @FXML
     public void updateStopTimes() {
@@ -422,6 +440,7 @@ public class Controller {
         tripIdFormat.visibleProperty().setValue(true);
         textArea1.visibleProperty().setValue(false);
         tripSpeedButton.visibleProperty().setValue(false);
+        tripDistanceButton.visibleProperty().setValue(false);
 
 
         tripIdFormat.setText("Format: '12345678_9ABC'");
@@ -522,6 +541,8 @@ public class Controller {
 
             textArea1.visibleProperty().setValue(true);
             tripSpeedButton.visibleProperty().setValue(true);
+            tripDistanceButton.visibleProperty().setValue(true);
+
 
         } catch (NumberFormatException E) {
             throwAlert("NumberFormatExeption", "Enter valid update data");

@@ -35,10 +35,6 @@ public class Application {
 		return 0.0;
 	}
 
-	public double displayAllTripDistance(){
-		return 0;
-	}
-
 	/**
 	 * 
 	 * @param stop_id
@@ -188,6 +184,56 @@ public class Application {
 			timeDifference = getTimeDifferenceHours(timeLast, timeFirst);
 			//add speed to string of speeds
 			speedList += "Trip: " + currentTripid + " Avg. Speed: " + String.format("%.2f",tripDistance/timeDifference) + " mph\n";
+		}
+		return speedList;
+	}
+
+	/**This method takes all of the trips currently in the trips hash
+	 * table and calculates the distance of the trip
+	 * @return String of all the trip ids and their distance
+	 * @throws ParseException
+	 */
+	public String displayAllTripDistance() throws ParseException{
+		//trip distance
+		double tripDistance;
+		//current tripid
+		String currentTripid;
+		//current stopid
+		String currentStopid;
+		//past stopid
+		String pastStopid;
+		//currentTripStopList
+		LinkedList currentTripStopList;
+		//string to put in textArea
+		String speedList = "";
+		//used for key storage
+		String str;
+		//get keys
+		Set<String> keys = trips.keySet();
+		//get iterator for hashtable
+		Iterator<String> itr = keys.iterator();
+		//for each trip
+		while (itr.hasNext()) {
+			//reset trip distance;
+			tripDistance = 0;
+			//get key
+			str = itr.next();
+			//get tripid
+			currentTripid = trips.get(str).getTrip_id();
+			//get list of stops and their times
+			currentTripStopList = stopTimes.get(currentTripid);
+			//get first stop
+			pastStopid = ((StopTime)(currentTripStopList.get(0))).getStop_id();
+			//for each stop after the first
+			for(int i = 1; i < currentTripStopList.size(); i++){
+				currentStopid = ((StopTime)(currentTripStopList.get(i))).getStop_id();
+				//get distance between past and current stop
+				tripDistance += distance(stops.get(pastStopid).getStop_lat(), stops.get(currentStopid).getStop_lat(), stops.get(pastStopid).getStop_long(), stops.get(currentStopid).getStop_long());
+				//set past stop as current stop
+				pastStopid = currentStopid;
+			}
+			//add speed to string of speeds
+			speedList += "Trip: " + currentTripid + " Distance: " + String.format("%.2f",tripDistance) + " miles\n";
 		}
 		return speedList;
 	}
