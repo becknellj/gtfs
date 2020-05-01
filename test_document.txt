@@ -31,47 +31,45 @@ void filesToTripsEqualTrip(){
 
 
 
-     * TESTS FOR FEATURE 12
-     * Author: Jade Becknell
-     * 1) making sure that user input is reflected in data structure (when everything is valid
-     * 2) making sure that invalid input for trip_id is handles
-     * 3) making sure that invalid attribute data is handles
-     */
-    //
+TESTS FOR FEATURE 12
+Author: Jade Becknell
+1) making sure that user input is reflected in data structure (when everything is valid
+2) making sure that invalid input for trip_id is handles
+3) making sure that invalid attribute data is handles
 
-    /**
-     *  1 of 3
-     *  This test makes sure that the user cannot successfully enter invalid attribute values
-     */
-    @Test
-    void inputEqualsAttributeData() {
+1 of 3
+This test makes sure that the user cannot successfully enter invalid attribute values
+@Test
+void inputEqualsAttributeData() {
 
-        /**
-         * 2 of 3
-         * This tests to make sure that a user can't update a stop time with invalid input
-         * checks for invalid trip id, time input, and stop sequence
-         */
-        @Test
-        void invalidAttributeInput()
-
-     /**
-          * 3 of 3
-          * This test makes sure the user cannot successfully enter an invalid trip id
-          * to specify which stop time group they would like to edit
-          */
-         @Test
-         void testInvalidTripIdSearch()
+2 of 3
+This tests to make sure that a user can't update a stop time with invalid input
+checks for invalid trip id, time input, and stop sequence
+@Test
+void invalidAttributeInput()
 
 
+3 of 3
+This test makes sure the user cannot successfully enter an invalid trip id
+to specify which stop time group they would like to edit
+@Test
+void testInvalidTripIdSearch()
+
+Test conducted on Feature 2
+Author: Andrew Nebel
+This feature was tested via importing the
+Milwaukee GTFS files and comparing two separate
+Trip program distances compared to those trips'
+distances hand calculated.
 
 
 
-             // Daniel Griffith
-             // This test checks input validation on import files
-             // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
-             // i.e. stops.txt being imported as routes.txt
-             @Test
-             void fileImportInputValidationTest()
+Daniel Griffith
+This test checks input validation on import files
+Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
+i.e. stops.txt being imported as routes.txt
+@Test
+void fileImportInputValidationTest()
 
 
 Code coverage gtfseditor: class 37%, method 7%, line 5%

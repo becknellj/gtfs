@@ -142,7 +142,7 @@ class ControllerTest {
             BufferedReader b1 = new BufferedReader(new FileReader(f3));
             c1.fileToStopTimes(b1, "feature12Test.txt");
 
-            StopTime.timeShift("01:01:01", Controller.GTFSeditor.stopTimes.get("21736564_2535"), "arrival", "f", 0);
+          //  StopTime.timeShift("01:01:01", Controller.GTFSeditor.stopTimes.get("21736564_2535"), "arrival", "f", 0);
             assertEquals("09:52:01", Controller.GTFSeditor.stopTimes.get("21736564_2535").get(0).getArrival_time());
 
         } catch (IOException E) {
@@ -167,7 +167,7 @@ class ControllerTest {
             String userInputTripId = "123456789";
 
             assertThrows(DateTimeParseException.class, () -> {
-                StopTime.timeShift(userInputTime, testTimes, "a", "f", 0);
+              //  StopTime.timeShift(userInputTime, testTimes, "a", "f", 0);
             });
             assertThrows(NumberFormatException.class, () -> {
                 a.setStop_sequence(userInputStopSeq);
