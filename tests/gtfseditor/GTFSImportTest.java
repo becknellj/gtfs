@@ -83,30 +83,62 @@ class GTFSImportTest {
     // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
     // i.e. stops.txt being imported as routes.txt
     @Test
-    void fileImportInputValidationTest() {
+    void fileImportInputValidationTest1() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     c1.parseFiles(f7,f4,f6,f4);
                 });
+
+    }
+
+    // Daniel Griffith
+    // This test checks input validation on import files
+    // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
+    // i.e. stops.txt being imported as routes.txt
+    @Test
+    void fileImportInputValidationTest2() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     c1.parseFiles(f7,f5,f6,f5);
                 });
+    }
+
+
+    // Daniel Griffith
+    // This test checks input validation on import files
+    // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
+    // i.e. stops.txt being imported as routes.txt
+    @Test
+    void fileImportInputValidationTest3() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     c1.parseFiles(f7,f4,f4,f5);
                 });
+
+    }
+
+    // Daniel Griffith
+    // This test checks input validation on import files
+    // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
+    // i.e. stops.txt being imported as routes.txt
+    @Test
+    void fileImportInputValidationTest4() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     c1.parseFiles(f6,f4,f6,f5);
                 });
-
+    }
+    // Daniel Griffith
+    // This test checks input validation on import files
+    // Should throw IllegalArgumentException if a GTFS file is imported as the wrong type of GTFS file
+    // i.e. stops.txt being imported as routes.txt
+    @Test
+    void fileImportInputValidationTest5() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     c1.parseFiles(f4,f4,f4,f4);
                 });
     }
-
     //Andrew Nebel
     //This test makes sure trips are successfully put into the application
     //hashtable and that their info is the same as excepted based on the
