@@ -84,14 +84,20 @@ public class Application {
      * @param stop_id
      */
     public List searchStop(String stop_id) {
-
-        Set tripIds = new HashSet();
+        List tripIds = new ArrayList();
+        List routeIds = new ArrayList();
         for (Map.Entry entry : stopTimes.entrySet()) {
             if (stop_id.equals(entry.getValue())) {
                 tripIds.add(entry.getKey());
             }
         }
-        return null;
+
+        for (Map.Entry entry: trips.entrySet()){
+			if (tripIds.equals(entry.getValue())){
+				routeIds.add(entry.getKey());
+			}
+		}
+        return routeIds;
     }
 
     /**
