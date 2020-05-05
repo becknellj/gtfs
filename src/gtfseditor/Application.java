@@ -86,15 +86,16 @@ public class Application {
     public List searchStop(String stop_id) {
         List tripIds = new ArrayList();
         List routeIds = new ArrayList();
-        for (Map.Entry entry : stopTimes.entrySet()) {
-            if (stop_id.equals(entry.getValue())) {
-                tripIds.add(entry.getKey());
+        //search the stopTimes HashTable for the stop_id and add all trip_ids associated with the stop_id to a list
+        for (Map.Entry stopTime : stopTimes.entrySet()){
+            if (stop_id.equals(stopTime.getValue())){
+                tripIds.add(stopTime.getKey());
             }
         }
-
-        for (Map.Entry entry: trips.entrySet()){
-			if (tripIds.equals(entry.getValue())){
-				routeIds.add(entry.getKey());
+		//search the trips HashTable for trip_ids and add all route_ids associated with those trip_ids to a list
+        for (Map.Entry trip: trips.entrySet()){
+			if (tripIds.equals(trip.getValue())){
+				routeIds.add(trip.getKey());
 			}
 		}
         return routeIds;
