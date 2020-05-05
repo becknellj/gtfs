@@ -591,6 +591,8 @@ public class Controller {
             E.printStackTrace();
         } catch (NumberFormatException e) {
             throwAlert("NumberFormatException", "Incorrect format for stop id, please enter valid ID");
+        } catch (Exception e){
+            throwAlert("Input Error", "Try again.");
         }
 
     }
