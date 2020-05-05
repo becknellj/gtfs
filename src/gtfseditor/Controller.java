@@ -35,6 +35,8 @@ public class Controller {
     @FXML
     CheckBox routeCheck;
     @FXML
+    CheckBox stopIdSearch;
+    @FXML
     MenuButton updateMenuButton;
     @FXML
     RadioMenuItem timeForwards;
@@ -80,6 +82,10 @@ public class Controller {
     TextField nextTripText;
     @FXML
     Label label1;
+    @FXML
+    TextArea searchBar;
+    @FXML
+    Button searchButton;
 
     @FXML
     public void openStopsFile(ActionEvent event) {
@@ -587,6 +593,17 @@ public class Controller {
             throwAlert("NumberFormatException", "Incorrect format for stop id, please enter valid ID");
         }
 
+    }
+
+    @FXML
+    public void searchEntered(){
+        List results;
+        if(stopIdSearch.isSelected()){
+            results = GTFSeditor.searchStop(searchBar.getText());
+        } else {
+            results = GTFSeditor.searchRoute(searchBar.getText());
+        }
+        textArea1.setText(results.toString());
     }
 
     /**
