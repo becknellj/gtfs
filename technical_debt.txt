@@ -5,10 +5,10 @@ Format:
     How it could've been prevented:
     Time expected/taken to fix:
     Priority:   (1-5, 1 = immediate, 5 = can be ignored)
+    Status: resolved or unresolved, [debugger name]
 
 ==============
 Andrew Nebel
-
 
 Feature 2
 
@@ -17,29 +17,46 @@ The program will not throw an error
 telling the user that the data structures
 are empty if they try to run displayAllTripDistance()
 with no data imported.
+
 Cause:
 Lazy coding, having it run under any conditions
+
 How it could've been prevented:
 Preform checks on the data structures
 to see if data is stored inside them
 before function can run
+
 Time expected/taken to fix:
 10 minutes
+
 Priority:
 3
 
+Status:
+resolved, Jade Becknell
+
+---
 Desc:
 The program will not set the zeroFlag
 of the Application when the distance returned
 from the distance function is 0
+
 Cause:
 Acceptance Criteria not seen at creation
+
 How it could've been prevented:
 Look closer at acceptance Criteria
+
 Time expected/taken to fix:
 15 minutes
+
 Priority:
 4
+
+Status:
+unresolved
+
+------------------------------------
 
 Feature 3
 
@@ -48,40 +65,74 @@ The program will not throw an error
 telling the user that the data structures
 are empty if they try to run displayAllTripspeed()
 with no data imported.
+
 Cause:
 Lazy coding, having it run under any conditions
+
 How it could've been prevented:
 Preform checks on the data structures
 to see if data is stored inside them
 before function can run
+
 Time expected/taken to fix:
 10 minutes
+
 Priority:
 3
 
+Status:
+resolved, Jade Becknell
 
+---
 Desc:
 The program will not set the zeroFlag
 of the Application when the time returned
 from the TimeDifference function is 0
+
 Cause:
 Acceptance Criteria not seen at creation
+
 How it could've been prevented:
 Look closer at acceptance Criteria
+
 Time expected/taken to fix:
 15 minutes
+
 Priority:
 4
 
+Status:
+unresolved
 
 
 
 ==============
-Jade Beckner
+Jade Becknell
 
+Feature 8
 
+Desc:
+The program does not throw an error
+telling the user that the hashtables
+are empty if they invoke displayNextTrips()
+with no gtfs data imported.
 
+Cause:
+Lazy coding, having it run under any conditions
 
+How it could've been prevented:
+Preform checks on the data structures
+to see if data is stored inside them
+before function can run
+
+Time expected/taken to fix:
+10 minutes
+
+Priority:
+3
+
+Status:
+resolved, Jade Becknell
 
 
 ==============
