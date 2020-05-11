@@ -4,6 +4,7 @@ package gtfseditor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 import java.io.*;
@@ -34,6 +35,8 @@ public class Controller {
     CheckBox tripCheck;
     @FXML
     CheckBox routeCheck;
+    @FXML
+    CheckBox stopIdSearch;
     @FXML
     MenuButton updateMenuButton;
     @FXML
@@ -80,6 +83,17 @@ public class Controller {
     TextField nextTripText;
     @FXML
     Label label1;
+    @FXML
+    Label nextTripLabel;
+    @FXML
+    Button backButton;
+    @FXML
+    TextArea searchBar;
+    @FXML
+    Button searchButton;
+    Boolean imported = false;
+    @FXML
+    AnchorPane secondPane;
 
     @FXML
     public void openStopsFile(ActionEvent event) {
@@ -169,6 +183,7 @@ public class Controller {
             parseFiles(selectedTripFile, selectedRouteFile, selectedStopFile, selectedTimeFile);
             //confirmation files imported
             throwInfoAlert("Import Status", "All files were imported successfully");
+            imported = true;
         } catch (NullPointerException e) {
             throwAlert("NullPointerException", "There were troubles importing, " +
                     "make sure four files were selected.");
@@ -398,10 +413,15 @@ public class Controller {
     @FXML
     public void tripSpeeds() {
         try {
-            //reset area
-            textArea1.setText("");
-            //set to list of speeds
-            textArea1.setText(GTFSeditor.displayAllTripSpeed());
+            if (imported == true) {
+                //reset area
+                textArea1.setText("");
+                //set to list of speeds
+                textArea1.setText(GTFSeditor.displayAllTripSpeed());
+            } else {
+                throwAlert("NullPointerException", "No GTFS files have been imported");
+            }
+
         } catch (ParseException e) {
             throwAlert("Parse exception", "Error parsing stop time");
         } catch (NullPointerException e) {
@@ -411,13 +431,18 @@ public class Controller {
         }
     }
 
+
     @FXML
     public void tripDistances() {
         try {
-            //reset area
-            textArea1.setText("");
-            //set to list of speeds
-            textArea1.setText(GTFSeditor.displayAllTripDistance());
+            if (imported == true) {
+                //reset area
+                textArea1.setText("");
+                //set to list of speeds
+                textArea1.setText(GTFSeditor.displayAllTripDistance());
+            } else {
+                throwAlert("NullPointerException", "No GTFS files have been imported");
+            }
         } catch (ParseException e) {
             throwAlert("Parse exception", "Error parsing stop time");
         } catch (NullPointerException e) {
@@ -436,18 +461,9 @@ public class Controller {
         String toField = "Nothing selected";
         String format = "";
 
-        //making gui elements available to user
-        timeTextField.visibleProperty().setValue(true);
-        timeTextField1.visibleProperty().setValue(true);
-        instrLabel.visibleProperty().setValue(true);
-        instrLabel1.visibleProperty().setValue(true);
-        enterButton.visibleProperty().setValue(true);
-        formatLabel.visibleProperty().setValue(true);
-        tripIdFormat.visibleProperty().setValue(true);
-        textArea1.visibleProperty().setValue(false);
-        tripSpeedButton.visibleProperty().setValue(false);
-        tripDistanceButton.visibleProperty().setValue(false);
 
+        //making gui elements available to user
+        showUpdateGUI(true);
 
         tripIdFormat.setText("Format: '12345678_9ABC'");
 
@@ -490,6 +506,24 @@ public class Controller {
         System.out.println(toField);
     }
 
+    void showUpdateGUI(boolean b) {
+        timeTextField.visibleProperty().setValue(b);
+        timeTextField1.visibleProperty().setValue(b);
+        instrLabel.visibleProperty().setValue(b);
+        instrLabel1.visibleProperty().setValue(b);
+        enterButton.visibleProperty().setValue(b);
+        backButton.visibleProperty().setValue(b);
+        formatLabel.visibleProperty().setValue(b);
+        tripIdFormat.visibleProperty().setValue(b);
+
+        textArea1.visibleProperty().setValue(!b);
+        tripSpeedButton.visibleProperty().setValue(!b);
+        tripDistanceButton.visibleProperty().setValue(!b);
+        nextTripButton.visibleProperty().setValue(!b);
+        nextTripText.visibleProperty().setValue(!b);
+        nextTripLabel.visibleProperty().setValue(!b);
+    }
+
     /**
      * This method is called when hitting enter button to update stop time  attributes
      * it updates the attribute of all objects with the desired trip_id
@@ -497,58 +531,51 @@ public class Controller {
     @FXML
     public void enterUpdate() {
         try {
-            String updateInfo = timeTextField.getText();
-            LinkedList<StopTime> times_with_common_trip = GTFSeditor.stopTimes.get(timeTextField1.getText()); //now has list of stop times with a specific stop id
-            int timeListSize = times_with_common_trip.size();
+            if (imported == true) {
+                String updateInfo = timeTextField.getText();
+                LinkedList<StopTime> times_with_common_trip = GTFSeditor.stopTimes.get(timeTextField1.getText()); //now has list of stop times with a specific stop id
+                int timeListSize = times_with_common_trip.size();
 
-            //TODO
-            if (timeForwards.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    StopTime.timeShift(updateInfo, times_with_common_trip, "f", i);
+                //TODO
+                if (timeForwards.isSelected()) {
+                    for (int i = 0; i < timeListSize; i++) {
+                        StopTime.timeShift(updateInfo, times_with_common_trip, "f", i);
+                    }
+                } else if (timeBackwards.isSelected()) {
+                    for (int i = 0; i < timeListSize; i++) {
+                        StopTime.timeShift(updateInfo, times_with_common_trip, "b", i);
+                    }
+                } else if (drop_off_type.isSelected()) {
+                    for (int i = 0; i < timeListSize; i++) {
+                        times_with_common_trip.get(i).setDrop_off_type(updateInfo);
+                    }
+                } else if (pickup_type.isSelected()) {
+                    for (int i = 0; i < times_with_common_trip.size(); i++) {
+                        times_with_common_trip.get(i).setPickup_type(updateInfo);
+                    }
+                } else if (stop_headsign.isSelected()) {
+                    for (int i = 0; i < timeListSize; i++) {
+                        times_with_common_trip.get(i).setStop_headsign(updateInfo);
+                    }
+                } else if (stop_id.isSelected()) {
+                    for (int i = 0; i < timeListSize; i++) {
+                        times_with_common_trip.get(i).setStop_id(updateInfo);
+                    }
+                } else if (stop_sequence.isSelected()) {
+                    for (int i = 0; i < timeListSize; i++) {
+                        times_with_common_trip.get(i).setStop_sequence(updateInfo);
+                    }
+                } else if (trip_id.isSelected()) {
+                    for (int i = 0; i < timeListSize; i++) {
+                        times_with_common_trip.get(i).setTrip_id(updateInfo);
+                    }
                 }
-            } else if (timeBackwards.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    StopTime.timeShift(updateInfo, times_with_common_trip, "b", i);
-                }
-            } else if (drop_off_type.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    times_with_common_trip.get(i).setDrop_off_type(updateInfo);
-                }
-            } else if (pickup_type.isSelected()) {
-                for (int i = 0; i < times_with_common_trip.size(); i++) {
-                    times_with_common_trip.get(i).setPickup_type(updateInfo);
-                }
-            } else if (stop_headsign.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    times_with_common_trip.get(i).setStop_headsign(updateInfo);
-                }
-            } else if (stop_id.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    times_with_common_trip.get(i).setStop_id(updateInfo);
-                }
-            } else if (stop_sequence.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    times_with_common_trip.get(i).setStop_sequence(updateInfo);
-                }
-            } else if (trip_id.isSelected()) {
-                for (int i = 0; i < timeListSize; i++) {
-                    times_with_common_trip.get(i).setTrip_id(updateInfo);
-                }
+                throwInfoAlert("Update Status", "All stop times in group were updated successfully");
+
+                showUpdateGUI(false);
+            } else {
+                throwAlert("NullPointerException", "No GTFS files have been imported");
             }
-            throwInfoAlert("Update Status", "All stop times in group were updated successfully");
-
-            timeTextField.visibleProperty().setValue(false);
-            timeTextField1.visibleProperty().setValue(false);
-            instrLabel.visibleProperty().setValue(false);
-            instrLabel1.visibleProperty().setValue(false);
-            enterButton.visibleProperty().setValue(false);
-            formatLabel.visibleProperty().setValue(false);
-            tripIdFormat.visibleProperty().setValue(false);
-
-            textArea1.visibleProperty().setValue(true);
-            tripSpeedButton.visibleProperty().setValue(true);
-            tripDistanceButton.visibleProperty().setValue(true);
-
 
         } catch (NumberFormatException E) {
             throwAlert("NumberFormatExeption", "Enter valid update data");
@@ -562,22 +589,31 @@ public class Controller {
     }
 
     @FXML
+    public void backToStart() {
+        showUpdateGUI(false);
+    }
+
+    @FXML
     public void displayNextTrips() {
         String stop_id;
         Hashtable<Integer, String> closestTimes;
         String finalIds = "";
 
         try {
-            stop_id = nextTripText.getText();
-            closestTimes = GTFSeditor.searchStopNextTrip(stop_id, timeKeys);
-            textArea1.clear();
+            if (imported == true) {
+                stop_id = nextTripText.getText();
+                closestTimes = GTFSeditor.searchStopNextTrip(stop_id, timeKeys);
+                textArea1.clear();
 
-            textArea1.appendText("Nearest departure times for stop_id  " + stop_id + ":\n\n");
+                textArea1.appendText("Nearest departure times for stop_id  " + stop_id + ":\n\n");
 
-            for (int i = 0; i < closestTimes.size(); i++) {
-                //System.out.println(closestTimes.get(i));
-                finalIds = closestTimes.get(i); //now has array with id and time
-                textArea1.appendText(finalIds);
+                for (int i = 0; i < closestTimes.size(); i++) {
+                    //System.out.println(closestTimes.get(i));
+                    finalIds = closestTimes.get(i); //now has array with id and time
+                    textArea1.appendText(finalIds);
+                }
+            } else {
+                throwAlert("NullPointerException", "No GTFS files have been imported");
             }
 
         } catch (NullPointerException E) {
@@ -585,10 +621,21 @@ public class Controller {
             E.printStackTrace();
         } catch (NumberFormatException e) {
             throwAlert("NumberFormatException", "Incorrect format for stop id, please enter valid ID");
-        } catch (Exception e){
+        } catch (Exception e) {
             throwAlert("Input Error", "Try again.");
         }
 
+    }
+
+    @FXML
+    public void searchEntered() {
+        List results;
+        if (stopIdSearch.isSelected()) {
+            results = GTFSeditor.searchStop(searchBar.getText());
+        } else {
+            results = GTFSeditor.searchRoute(searchBar.getText());
+        }
+        textArea1.setText(results.toString());
     }
 
     /**
