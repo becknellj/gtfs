@@ -56,9 +56,9 @@ class GTFSImportTest {
     void tearDown() {
     }
     //Andrew Nebel
-//This test makes sure that if there is no file to parse
-//that it is thrown up to the importFiles method so that
-//an alert is thrown to the user.
+    //This test makes sure that if there is no file to parse
+    //that it is thrown up to the importFiles method so that
+    //an alert is thrown to the user.
     @Test
     void parseFilesNullPointer() {
         assertThrows(NullPointerException.class,
