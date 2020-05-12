@@ -89,16 +89,21 @@ public class Application {
         List tripIds = new ArrayList();
         List routeIds = new ArrayList();
         //search the stopTimes HashTable for the stop_id and add all trip_ids associated with the stop_id to a list
-        for (Map.Entry stopTime : stopTimes.entrySet()){
-            if (stop_id.equals(stopTime.getValue())){
-                tripIds.add(stopTime.getKey());
+        for (String stopTimeKey : stopTimes.keySet()){
+            StopTime stopTime = stopTimes.get(stopTimeKey).get(3);
+            String stopId = stopTime.getStop_id();
+            if (stop_id.equals(stopId)) {
+                tripIds.add(stopTimeKey);
             }
         }
 		//search the trips HashTable for trip_ids and add all route_ids associated with those trip_ids to a list
-        for (Map.Entry trip: trips.entrySet()){
-			if (tripIds.equals(trip.getValue())){
-				routeIds.add(trip.getKey());
-			}
+        for (String tripKey: trips.keySet()){
+            String tripId = trips.get(tripKey).getTrip_id();
+            for (Object id : tripIds) {
+                if (tripId.equals(id)) {
+                    routeIds.add(trips.get(tripKey).getRoute_id());
+                }
+            }
 		}
         return routeIds;
     }
