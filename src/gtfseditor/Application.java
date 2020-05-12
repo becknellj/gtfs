@@ -25,6 +25,8 @@ public class Application {
     protected Hashtable<String, LinkedList<StopTime>> stopTimes;
     protected Hashtable<String, Trip> trips;
 
+    protected boolean zeroFlag = false;
+
     public Application() {
         this.trips = new Hashtable<String, Trip>();
         this.stops = new Hashtable<String, Stop>();
@@ -304,7 +306,7 @@ public class Application {
     // This code is contributed by Prasad Kshirsagar
     // Code from geeksforgeeks.org that calculates
     //distance between two points lat and long
-    public static double distance(double lat1,
+    public double distance(double lat1,
                                   double lat2, double lon1,
                                   double lon2) {
 
@@ -334,7 +336,7 @@ public class Application {
     }
 
 
-    public static double getTimeDifferenceHours(String time1, String time2) throws ParseException {
+    public double getTimeDifferenceHours(String time1, String time2) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         Date date1 = format.parse(time1);
         Date date2 = format.parse(time2);

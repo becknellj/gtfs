@@ -17,8 +17,6 @@ that it is thrown up to the importFiles method so that
 an alert is thrown to the user.
 void parseFilesFileNotFound(){
 
-
-
 Below are the tests for the filesToTrips method
 written by: Andrew Nebel
 One tests that the info parsed from the file is in an object and is correct
@@ -28,6 +26,53 @@ This test makes sure trips are successfully put into the application
 hashtable and that their info is the same as excepted based on the
 .txt file they are in
 void filesToTripsEqualTrip(){
+
+
+Below are the tests for Feature2 and its helper methods
+written by: Andrew Nebel
+
+Andrew Nebel
+This test makes sure that if the data structures
+are empty that the user is made aware.
+@Test
+void emptyDataStructures(){
+
+Andrew Nebel
+This test makes sure that the helper method
+distance, cannot return a negative double
+@Test
+void negativeDistance() {
+
+Andrew Nebel
+This test makes sure that the zeroFlag
+is set high if zero is returned so that
+trip can be marked "0*"
+@Test
+void zeroDistance() {
+
+Below are the tests for Feature3 and its helper methods
+written by: Andrew Nebel
+
+Andrew Nebel
+This test makes sure that the zeroFlag
+is set high if the time is 0 so that
+trip can be marked "0*"
+@Test
+void zeroTime() throws ParseException{
+
+Andrew Nebel
+This test makes sure that the helper method
+time, cannot return a negative double
+@Test
+void negativeTime() throws ParseException {
+
+Andrew Nebel
+This test makes sure that if the data structures
+are empty that the user is made aware.
+@Test
+void emptyDataStructuresSpeed(){
+
+
 
 
 
