@@ -264,7 +264,7 @@ public class Controller {
                 if (i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
                     if(elements.length != numParameters) {
-                        throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                     //   throw new IllegalArgumentException("Invalid parameter for stops.txt");
                     }
                     //create new stop
                     Stop newStop = new Stop(elements[0], elements[1], elements[2],
@@ -396,7 +396,7 @@ public class Controller {
                     }
                 }
                 if (!validParameter) {
-                    throw new IllegalArgumentException("Invalid parameter for routes.txt");
+                  //  throw new IllegalArgumentException("Invalid parameter for routes.txt");
                 }
             }
             System.out.println("\n\nImporting: " + fileName);
@@ -405,7 +405,7 @@ public class Controller {
                 if (i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
                     if(elements.length != numParameters) {
-                        throw new IllegalArgumentException("Invalid parameter for routes.txt");
+                     //   throw new IllegalArgumentException("Invalid parameter for routes.txt");
                     }
                     //create new route
                     Route newRoute = new Route(elements[0], elements[1], elements[2], elements[3], elements[4], elements[5], elements[6], elements[7]);
