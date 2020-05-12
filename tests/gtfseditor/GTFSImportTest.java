@@ -25,6 +25,7 @@ class GTFSImportTest {
     File f5;
     File f6;
     File f7;
+    File f8;
     File testStop;
     File testRoute;
     File testTrip;
@@ -45,6 +46,8 @@ class GTFSImportTest {
         f5 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/stop_times.txt");
         f6 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/stops.txt");
         f7 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/trips.txt");
+        f8 = new File(System.getProperty("user.home") + "/se2030/GTFS_MCTS/stopsInvalid.txt");
+
         testTimes = new LinkedList<>();
         a = new StopTime("21736564_2535", "08:52:00", "08:52:00", "4664", "2", "", "0", "0");
         b = new StopTime("21736564_2535", "08:52:00", "08:52:00", "4664", "2", "", "0", "0");
@@ -139,6 +142,17 @@ class GTFSImportTest {
                     c1.parseFiles(f4,f4,f4,f4);
                 });
     }
+
+    // Daniel Griffith
+    // Tests input validation for  a stops.txt file with an invalid number of parameters on one line
+    @Test
+    void fileImportInputValidationTest6() {
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    c1.parseFiles(f7,f4,f8,f5);
+                });
+    }
+
     //Andrew Nebel
     //This test makes sure trips are successfully put into the application
     //hashtable and that their info is the same as excepted based on the
