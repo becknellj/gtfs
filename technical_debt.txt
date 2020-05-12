@@ -155,6 +155,22 @@ Priority:
 Status:
 unresolved
 
+Import validation
+
+Desc:
+The program does not check if each line of the file has the number of parameters that match the first line.
+
+Cause:
+Insufficient testing, not all cases were considered.
+
+Time expected/taken to fix:
+15 minutes
+
+Priority:
+3
+
+Status:
+resolved, Daniel Griffith
 
 
 ==============
