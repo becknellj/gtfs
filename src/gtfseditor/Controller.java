@@ -242,9 +242,11 @@ public class Controller {
         String[] elements = null;
         String[] validParamters = {"stop_id", "stop_code", "stop_name", "stop_desc", "stop_lat", "stop_lon", "zone_id",
                 "stop_url", "location_type", "parent_station", "stop_timezone", "wheelchair_boarding", "level_id", "platform_code"};
+        int numParameters = 0;
         try {
             String c = bufferIn.readLine();
             elements = c.split(",");
+            numParameters = elements.length;
             for (String element : elements) {
                 boolean validParameter = false;
                 for (String valid : validParamters) {
@@ -261,6 +263,9 @@ public class Controller {
             for (int i = 0; c != null; i++) { //for each line in doc
                 if (i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
+                    if(elements.length != numParameters) {
+                        throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                    }
                     //create new stop
                     Stop newStop = new Stop(elements[0], elements[1], elements[2],
                             Double.parseDouble(elements[3]), Double.parseDouble(elements[4]));
@@ -280,10 +285,12 @@ public class Controller {
         String[] elements = null;
         String[] validParamters = {"route_id", "service_id", "trip_id", "trip_headsign", "trip_short_name", "direction_id", "block_id", "shape_id",
                 "wheelchair_accessible", "bikes_allowed"};
+        int numParameters = 0;
         try {
 
             String c = bufferIn.readLine();
             elements = c.split(",");
+            numParameters = elements.length;
             for (String element : elements) {
                 boolean validParameter = false;
                 for (String valid : validParamters) {
@@ -300,6 +307,9 @@ public class Controller {
             for (int i = 0; c != null; i++) { //for each line in doc
                 if (i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
+                    if(elements.length != numParameters) {
+                        throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                    }
                     //create new trip
                     Trip newTrip = new Trip(elements[0], elements[1], elements[2], elements[3],
                             elements[4], elements[5], elements[6]);
@@ -321,10 +331,12 @@ public class Controller {
         String[] validParamters = {"trip_id", "arrival_time", "departure_time", "stop_id", "stop_sequence", "stop_headsign", "pickup_type",
                 "drop_off_type", "shape_dist_travel", "timepoint"};
         String[] timeElements;
+        int numParameters = 0;
 
         try {
             String c = bufferIn.readLine();
             timeElements = c.split(",");
+            numParameters = timeElements.length;
             for (String element : timeElements) {
                 boolean validParameter = false;
                 for (String valid : validParamters) {
@@ -333,7 +345,7 @@ public class Controller {
                     }
                 }
                 if (!validParameter) {
-                    throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                    throw new IllegalArgumentException("Invalid parameter for stop_times.txt");
                 }
             }
             System.out.println("\n\nImporting: " + fileName);
@@ -341,6 +353,9 @@ public class Controller {
             for (int i = 0; c != null; i++) { //for each line in doc
                 if (i != 0) { //skip first line, no info to import
                     timeElements = c.split(","); //fills array with data from one line
+                    if(timeElements.length != numParameters) {
+                        throw new IllegalArgumentException("Invalid parameter for stop_times.txt");
+                    }
                     //create new stopTime
                     timeKeys.add(timeElements[0]);
                     StopTime newStopTime = new StopTime(timeElements[0], timeElements[1], timeElements[2], timeElements[3], timeElements[4],
@@ -368,9 +383,11 @@ public class Controller {
         String[] elements = null;
         String[] validParamters = {"route_id", "agency_id", "route_short_name", "route_long_name", "route_desc", "route_type",
                 "route_url", "route_color", "route_text_color", "route_sort_order"};
+        int numParameters = 0;
         try {
             String c = bufferIn.readLine();
             elements = c.split(",");
+            numParameters = elements.length;
             for (String element : elements) {
                 boolean validParameter = false;
                 for (String valid : validParamters) {
@@ -379,7 +396,7 @@ public class Controller {
                     }
                 }
                 if (!validParameter) {
-                    throw new IllegalArgumentException("Invalid parameter for stops.txt");
+                    throw new IllegalArgumentException("Invalid parameter for routes.txt");
                 }
             }
             System.out.println("\n\nImporting: " + fileName);
@@ -387,6 +404,9 @@ public class Controller {
             for (int i = 0; c != null; i++) { //for each line in doc
                 if (i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
+                    if(elements.length != numParameters) {
+                        throw new IllegalArgumentException("Invalid parameter for routes.txt");
+                    }
                     //create new route
                     Route newRoute = new Route(elements[0], elements[1], elements[2], elements[3], elements[4], elements[5], elements[6], elements[7]);
                     //add Route to Route table in application via its route id

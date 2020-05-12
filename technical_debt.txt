@@ -138,8 +138,39 @@ resolved, Jade Becknell
 ==============
 Daniel Griffith
 
+Import validation
 
+Desc:
+The program does not check if imported files are from the same city.
 
+Casuse:
+Insufficient time spent to build more complete validation.
+
+Time expected/taken to fix::
+Several hours
+
+Priority:
+5
+
+Status:
+unresolved
+
+Import validation
+
+Desc:
+The program does not check if each line of the file has the number of parameters that match the first line.
+
+Cause:
+Insufficient testing, not all cases were considered.
+
+Time expected/taken to fix:
+15 minutes
+
+Priority:
+3
+
+Status:
+resolved, Daniel Griffith
 
 
 ==============
