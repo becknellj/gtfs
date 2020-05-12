@@ -431,6 +431,7 @@ public class Controller {
         }
     }
 
+
     @FXML
     public void tripDistances() {
         try {

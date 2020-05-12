@@ -221,6 +221,8 @@ public class Application {
         Iterator<String> itr = keys.iterator();
         //for each trip
         while (itr.hasNext()) {
+            //reset zero flag
+            zeroFlag = false;
             //reset trip distance;
             tripDistance = 0;
             //get key
@@ -244,8 +246,13 @@ public class Application {
             timeLast = ((StopTime) (currentTripStopList.getLast())).getArrival_time();
             //get time difference
             timeDifference = getTimeDifferenceHours(timeLast, timeFirst);
-            //add speed to string of speeds
-            speedList += "Trip: " + currentTripid + " Avg. Speed: " + String.format("%.2f", tripDistance / timeDifference) + " mph\n";
+            //add 0* check
+            if(zeroFlag){
+                speedList += "Trip: " + currentTripid + " Avg. Speed: 0* mph\n";
+            } else {
+                //add speed to string of speeds
+                speedList += "Trip: " + currentTripid + " Avg. Speed: " + String.format("%.2f", tripDistance / timeDifference) + " mph\n";
+            }
         }
         return speedList;
     }
@@ -278,6 +285,8 @@ public class Application {
         Iterator<String> itr = keys.iterator();
         //for each trip
         while (itr.hasNext()) {
+            //reset zero flag
+            zeroFlag = false;
             //reset trip distance;
             tripDistance = 0;
             //get key
@@ -296,8 +305,13 @@ public class Application {
                 //set past stop as current stop
                 pastStopid = currentStopid;
             }
-            //add speed to string of speeds
-            speedList += "Trip: " + currentTripid + " Distance: " + String.format("%.2f", tripDistance) + " miles\n";
+            //add 0* check
+            if(zeroFlag){
+                speedList += "Trip: " + currentTripid + " Distance: 0* miles\n";
+            } else {
+                //add speed to string of speeds
+                speedList += "Trip: " + currentTripid + " Distance: " + String.format("%.2f", tripDistance) + " miles\n";
+            }
         }
         return speedList;
     }
@@ -331,6 +345,11 @@ public class Application {
         // for miles
         double r = 3956;
 
+        //see if is 0
+        if (c*r == 0){
+            zeroFlag = true;
+        }
+
         // calculate the result
         return (c * r);
     }
@@ -347,6 +366,11 @@ public class Application {
         difference = difference / 60;
         //convert to hours
         difference = difference / 60;
+
+        //see if is 0
+        if (difference == 0){
+            zeroFlag = true;
+        }
         return difference;
     }
 
