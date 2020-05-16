@@ -26,24 +26,56 @@
          <children>
             <MenuButton fx:id="updateMenuButton" layoutX="241.0" layoutY="128.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Update">
               <items>
+                  <Menu mnemonicParsing="false" text="Stop">
+                    <items>
+                        <RadioMenuItem fx:id="stop_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_id">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="updateGroup" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="stop_desc_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_desc" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="stop_lat" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_lat" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="stop_long" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_long" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="stop_name" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_name" toggleGroup="$updateGroup" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Route">
+                    <items>
+                        <RadioMenuItem fx:id="route_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="agency_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="agency_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_short_name" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_short_name" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_long_name" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_long_name" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_desc_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_desc" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_type_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_type" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_url_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_url" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_color_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_color" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_color_text_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_color_text" toggleGroup="$updateGroup" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Trip">
+                     <items>
+                        <RadioMenuItem fx:id="trip_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="trip_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="service_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="service_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="route_id_item_1" mnemonicParsing="false" onAction="#updateAttributeGUI" text="route_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="trip_headsign_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="trip_headsign" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="direction_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="direction_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="block_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="block_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="shape_id_item" mnemonicParsing="false" onAction="#updateAttributeGUI" text="shape_id" toggleGroup="$updateGroup" />
+                     </items></Menu>
                   <Menu fx:id="updateStopTimesMenu" mnemonicParsing="false" text="Stop Times">
                     <items>
                         <Menu mnemonicParsing="false" text="time updates">
                           <items>
-                              <RadioMenuItem fx:id="timeForwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift forwards">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="timeUpdateGroup" />
-                                 </toggleGroup>
-                              </RadioMenuItem>
-                              <RadioMenuItem fx:id="timeBackwards" mnemonicParsing="false" onAction="#updateStopTimes" text="shift backwards" toggleGroup="$timeUpdateGroup" />
+                              <RadioMenuItem fx:id="timeForwards" mnemonicParsing="false" onAction="#updateAttributeGUI" text="shift forwards" toggleGroup="$updateGroup" />
+                              <RadioMenuItem fx:id="timeBackwards" mnemonicParsing="false" onAction="#updateAttributeGUI" text="shift backwards" toggleGroup="$updateGroup" />
                           </items>
                         </Menu>
-                        <RadioMenuItem fx:id="drop_off_type" mnemonicParsing="false" onAction="#updateStopTimes" text="drop_off_type" toggleGroup="$timeUpdateGroup" />
-                        <RadioMenuItem fx:id="pickup_type" mnemonicParsing="false" onAction="#updateStopTimes" text="pickup_type" toggleGroup="$timeUpdateGroup" />
-                        <RadioMenuItem fx:id="stop_headsign" mnemonicParsing="false" onAction="#updateStopTimes" text="stop_headsign" toggleGroup="$timeUpdateGroup" />
-                        <RadioMenuItem fx:id="stop_id" mnemonicParsing="false" onAction="#updateStopTimes" text="stop_id" toggleGroup="$timeUpdateGroup" />
-                        <RadioMenuItem fx:id="stop_sequence" mnemonicParsing="false" onAction="#updateStopTimes" text="stop_sequence" toggleGroup="$timeUpdateGroup" />
-                        <RadioMenuItem fx:id="trip_id" mnemonicParsing="false" onAction="#updateStopTimes" text="trip_id" toggleGroup="$timeUpdateGroup" />
+                        <RadioMenuItem fx:id="drop_off_type" mnemonicParsing="false" onAction="#updateAttributeGUI" text="drop_off_type" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="pickup_type" mnemonicParsing="false" onAction="#updateAttributeGUI" text="pickup_type" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="stop_headsign" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_headsign" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="stop_id" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_id" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="stop_sequence" mnemonicParsing="false" onAction="#updateAttributeGUI" text="stop_sequence" toggleGroup="$updateGroup" />
+                        <RadioMenuItem fx:id="trip_id" mnemonicParsing="false" onAction="#updateAttributeGUI" text="trip_id" toggleGroup="$updateGroup" />
                     </items>
                   </Menu>
               </items>
@@ -56,7 +88,7 @@
             <Button fx:id="importStopTimesButton" layoutX="235.0" layoutY="58.0" mnemonicParsing="false" onAction="#openStopTimesFile" text="stop_times.txt" />
             <Button fx:id="importRoutesButton" layoutX="346.0" layoutY="58.0" mnemonicParsing="false" onAction="#openRoutesFile" prefWidth="89.0" text="routes.txt" />
             <Label layoutX="17.0" layoutY="103.0" text="Once a file is selected for each click inport" />
-            <Label layoutX="14.0" layoutY="165.0" text="The data structures are displayed via the &quot;Display&quot; button" />
+            <Label fx:id="dataStructuresLabel" layoutX="14.0" layoutY="165.0" text="The data structures are displayed via the &quot;Display&quot; button" />
             <CheckBox fx:id="stopCheck" disable="true" layoutX="48.0" layoutY="83.0" mnemonicParsing="false" />
             <CheckBox fx:id="tripCheck" disable="true" layoutX="162.0" layoutY="83.0" mnemonicParsing="false" />
             <CheckBox fx:id="stopTimeCheck" disable="true" layoutX="269.0" layoutY="83.0" mnemonicParsing="false" />
@@ -64,18 +96,20 @@
             <Button layoutX="84.0" layoutY="128.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="54.0" text="Reset" />
             <TextField fx:id="timeTextField" alignment="TOP_LEFT" layoutX="14.0" layoutY="207.0" prefHeight="25.0" prefWidth="144.0" visible="false" />
             <Label fx:id="instrLabel" layoutX="14.0" layoutY="190.0" text="info" visible="false" />
-            <Button fx:id="enterButton" disable="true" layoutX="14.0" layoutY="286.0" mnemonicParsing="false" onAction="#enterUpdate" text="Enter" visible="false" />
-            <Button fx:id="backButton" layoutX="70.0" layoutY="286.0" mnemonicParsing="false" onAction="#backToStart" text="Back" visible="false" />
+            <Button fx:id="enterButton" disable="true" layoutX="15.0" layoutY="290.0" mnemonicParsing="false" onAction="#enterUpdate" text="Update Attribute" visible="false" />
+            <Button fx:id="backButton" layoutX="129.0" layoutY="290.0" mnemonicParsing="false" onAction="#backToStart" text="Back" visible="false" />
             <Label fx:id="instrLabel1" layoutX="14.0" layoutY="239.0" text="Enter trip id of group:" visible="false" />
             <TextField fx:id="timeTextField1" alignment="TOP_LEFT" layoutX="14.0" layoutY="256.0" prefHeight="25.0" prefWidth="144.0" visible="false" />
-            <Label fx:id="formatLabel" layoutX="164.0" layoutY="203.0" prefHeight="25.0" prefWidth="144.0" text="FORMAT" visible="false" />
+            <Label fx:id="formatLabel" layoutX="164.0" layoutY="203.0" prefHeight="25.0" prefWidth="323.0" text="FORMAT" visible="false" />
             <Label fx:id="tripIdFormat" layoutX="164.0" layoutY="260.0" text="tripIdFormat" visible="false" />
              <TextArea fx:id="textArea1" editable="false" layoutX="11.0" layoutY="182.0" prefHeight="100.0" prefWidth="303.0" />
              <Button fx:id="tripSpeedButton" layoutX="320.0" layoutY="240.0" mnemonicParsing="false" onAction="#tripSpeeds" text="Display Trip Average Speeds" />
             <Button fx:id="tripDistanceButton" layoutX="320.0" layoutY="207.0" mnemonicParsing="false" onAction="#tripDistances" text="Display Trip Distances" />
             <TextField fx:id="nextTripText" layoutX="12.0" layoutY="312.0" prefHeight="25.0" prefWidth="195.0" />
             <Button fx:id="nextTripButton" layoutX="219.0" layoutY="312.0" mnemonicParsing="false" onAction="#displayNextTrips" text="Display Trips" />
-            <Label fx:id="nextTripLabel" layoutX="10.0" layoutY="290.0" text="Enter Stop_id to view upcoming trips" />
+            <Label fx:id="nextTripLabel" layoutX="14.0" layoutY="294.0" text="Enter Stop_id to view upcoming trips" />
+            <Label fx:id="updateLabel" layoutX="15.0" layoutY="165.0" prefHeight="17.0" prefWidth="114.0" text="Currently Updating: " visible="false" />
+            <Label fx:id="updateLabel1" layoutX="127.0" layoutY="165.0" prefHeight="17.0" prefWidth="206.0" text="Label" textFill="#2412c9" visible="false" />
          </children>
       </Pane>
    </children>
