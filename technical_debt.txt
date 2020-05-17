@@ -105,6 +105,32 @@ Status:
 unresolved
 
 
+Andrew Nebel
+
+Feature 4
+
+Desc:
+The program will not throw an error
+telling the user that the data structures
+are empty if they try to run displayStopTripCount()
+with no data imported.
+
+Cause:
+Lazy coding, having it run under any conditions
+
+How it could've been prevented:
+Preform checks on the data structures
+to see if data is stored inside them
+before function can run
+
+Time expected/taken to fix:
+15 minutes
+
+Priority:
+3
+
+Status:
+resolved, Andrew Nebel
 
 ==============
 Jade Becknell

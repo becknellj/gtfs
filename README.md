@@ -42,5 +42,6 @@ General Transit Feed Specification (GTFS) Static is a flat file format for speci
 | Lab |Dates| Changes Made|  
 |-----|------|:---------------------------------------------------------------------------------|
 | 6   | 4/23 - 4/28|<ul><li>JUnit testing added with summaries</li><li>Implemented feature 3</li><li>Implemented feature 12<ul></li><li>Updated data structure for file import</li></ul><li>Added input validation functionality</li></ul>
-| 7   | 4/30 - 5/5|<ul><li>Creating Dev and Fixes Branch</li><li>Implemented feature 2 (Andrew Nebel)</li><li>Implemented feature 5 (Jacob Schultz)<ul></li></ul><li>Implemented feature 8 (Jade Becknell)</li><li>Bug Fixes/Reorganization (Daniel Giffith)</li></ul>
+| 7   | 4/30 - 5/5|<ul><li>Creating Dev and Fixes Branch</li><li>Implemented feature 2 (Andrew Nebel)</li><li>Implemented feature 5 (Jacob Schultz)<ul></li></ul><li>Implemented feature 8 (Jade Becknell)</li><li>Bug Fixes/Reorganization (Daniel Griffith)</li></ul>
 | 8   | 5/7 - 5/12|<ul><li>Added unit tests for all features</li><li>Added technical debt document</li><li>Logged and fixed defects</li></ul>
+| 9   | 5/14 - 5/22|<ul><li>Implemented feature 4 (Andrew Nebel)</li><li>Implemented feature 7 (Daniel Griffith)<ul></li></ul><li>Implemented feature 11 (Jade Becknell)</li><li>Implemented feature 6 (Jacob Schultz)</li></ul>

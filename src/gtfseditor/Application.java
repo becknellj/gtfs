@@ -233,7 +233,7 @@ public class Application {
             timeFirst = ((StopTime) (currentTripStopList.get(0))).getArrival_time();
             pastStopid = ((StopTime) (currentTripStopList.get(0))).getStop_id();
             //for each stop after the first
-            for (int i = 1; i < currentTripStopList.size(); i++) {
+            for (int i = 0; i < currentTripStopList.size(); i++) {
                 currentStopid = ((StopTime) (currentTripStopList.get(i))).getStop_id();
                 //get distance between past and current stop
                 tripDistance += distance(stops.get(pastStopid).getStop_lat(), stops.get(currentStopid).getStop_lat(), stops.get(pastStopid).getStop_long(), stops.get(currentStopid).getStop_long());
@@ -289,7 +289,7 @@ public class Application {
             //get first stop
             pastStopid = ((StopTime) (currentTripStopList.get(0))).getStop_id();
             //for each stop after the first
-            for (int i = 1; i < currentTripStopList.size(); i++) {
+            for (int i = 0; i < currentTripStopList.size(); i++) {
                 currentStopid = ((StopTime) (currentTripStopList.get(i))).getStop_id();
                 //get distance between past and current stop
                 tripDistance += distance(stops.get(pastStopid).getStop_lat(), stops.get(currentStopid).getStop_lat(), stops.get(pastStopid).getStop_long(), stops.get(currentStopid).getStop_long());
@@ -350,5 +350,62 @@ public class Application {
         return difference;
     }
 
+    /**
+     * This method takes all of the stops currently in the stops hash
+     * table and counts how many times they appear in trips
+     *
+     * @return String of all the stop ids and their trip count
+     */
+    public String displayStopTripCount(){
+        //current stopTime
+        StopTime currentStopTime;
+        //current stopid
+        String currentStopid;
+        //string to put in textArea
+        String countString = "";
+        //used for key storage
+        String str;
+        //currentStopList
+        LinkedList currentStopList;
+        //get keys
+        Set<String> keys = stops.keySet();
+        //get iterator for hashtable
+        Iterator<String> itr = keys.iterator();
+        //for each stop
+        while (itr.hasNext()) {
+            //count of trips
+            int tripCount = 0;
+            //get key
+            str = itr.next();
+            //get stopid
+            currentStopid = stops.get(str).getStop_id();
+            //create itr for stopTimes
+            //used for key storage
+            String str1;
+            //get keys
+            Set<String> keys1 = stopTimes.keySet();
+            //get itr
+            Iterator<String> itr1 = keys1.iterator();
+            //for each stopTime
+            while (itr1.hasNext()){
+                //get key
+                str1 = itr1.next();
+                //get linked list
+                currentStopList = stopTimes.get(str1);
+                //for every stopTime in the list
+                Iterator<StopTime> itr2 = currentStopList.iterator();
+                while(itr2.hasNext()){
+                    //new StopTime
+                    currentStopTime = itr2.next();
+                    if (currentStopTime.getStop_id().equals(currentStopid)){
+                        tripCount++;
+                    }
+                }
+            }
+            //add count to string of tripcounts
+            countString += "Stop: " + currentStopid + " is found on " + String.format("%d", tripCount) + " trips\n";
+        }
+        return countString;
+    }
 
 }

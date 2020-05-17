@@ -139,6 +139,8 @@ public class Controller {
     Label nextTripLabel;
     @FXML
     Button backButton;
+    @FXML
+    Button stopCountButton;
 
 
     @FXML
@@ -505,6 +507,24 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void stopTripCount() {
+        try {
+            if (imported == true) {
+                //reset area
+                textArea1.setText("");
+                //set to list of speeds
+                textArea1.setText(GTFSeditor.displayStopTripCount());
+            } else {
+                throwAlert("NullPointerException", "No GTFS files have been imported");
+            }
+        }  catch (NullPointerException e) {
+            throwAlert("Null Pointer Exception",
+                    "Make sure files are imported into the application before" +
+                            " requesting stops's trip counts");
+        }
+    }
+
     /**
      * This method is called when hitting enter button to update stop time  attributes
      * it updates the attribute of all objects with the desired trip_id
@@ -809,6 +829,7 @@ public class Controller {
         nextTripText.visibleProperty().setValue(!b);
         nextTripLabel.visibleProperty().setValue(!b);
         dataStructuresLabel.visibleProperty().setValue(!b);
+        stopCountButton.visibleProperty().setValue(!b);
 
 
     }
