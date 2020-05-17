@@ -28,6 +28,12 @@ public class Controller {
 
     //FXML objects
     @FXML
+    Label dataStructuresLabel;
+    @FXML
+    Label updateLabel;
+    @FXML
+    Label updateLabel1;
+    @FXML
     CheckBox stopCheck;
     @FXML
     CheckBox stopTimeCheck;
@@ -55,8 +61,54 @@ public class Controller {
     RadioMenuItem stop_sequence;
     @FXML
     RadioMenuItem trip_id;
+
     @FXML
-    ToggleGroup timeUpdateGroup;
+    RadioMenuItem stop_id_item;
+    @FXML
+    RadioMenuItem stop_desc_item;
+    @FXML
+    RadioMenuItem stop_lat;
+    @FXML
+    RadioMenuItem stop_long;
+    @FXML
+    RadioMenuItem stop_name;
+
+    @FXML
+    RadioMenuItem route_id_item;
+    @FXML
+    RadioMenuItem agency_id_item;
+    @FXML
+    RadioMenuItem route_short_name;
+    @FXML
+    RadioMenuItem route_long_name;
+    @FXML
+    RadioMenuItem route_desc_item;
+    @FXML
+    RadioMenuItem route_type_item;
+    @FXML
+    RadioMenuItem route_url_item;
+    @FXML
+    RadioMenuItem route_color_item;
+    @FXML
+    RadioMenuItem route_color_text_item;
+
+    @FXML
+    RadioMenuItem trip_id_item;
+    @FXML
+    RadioMenuItem service_id_item;
+    @FXML
+    RadioMenuItem route_id_item_1;
+    @FXML
+    RadioMenuItem trip_headsign_item;
+    @FXML
+    RadioMenuItem direction_id_item;
+    @FXML
+    RadioMenuItem block_id_item;
+    @FXML
+    RadioMenuItem shape_id_item;
+
+    @FXML
+    ToggleGroup updateGroup;
     @FXML
     TextField timeTextField;
     @FXML
@@ -87,6 +139,10 @@ public class Controller {
     Label nextTripLabel;
     @FXML
     Button backButton;
+    @FXML
+    Button stopCountButton;
+
+
     @FXML
     TextArea searchBar;
     @FXML
@@ -264,6 +320,7 @@ public class Controller {
                 if (i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
                     if(elements.length != numParameters) {
+
                      //   throw new IllegalArgumentException("Invalid parameter for stops.txt");
                     }
                     //create new stop
@@ -396,6 +453,7 @@ public class Controller {
                     }
                 }
                 if (!validParameter) {
+
                   //  throw new IllegalArgumentException("Invalid parameter for routes.txt");
                 }
             }
@@ -405,7 +463,7 @@ public class Controller {
                 if (i != 0) { //skip first line, no info to import
                     elements = c.split(","); //fills array with data from one line
                     if(elements.length != numParameters) {
-                     //   throw new IllegalArgumentException("Invalid parameter for routes.txt");
+                  //      throw new IllegalArgumentException("Invalid parameter for routes.txt");
                     }
                     //create new route
                     Route newRoute = new Route(elements[0], elements[1], elements[2], elements[3], elements[4], elements[5], elements[6], elements[7]);
@@ -472,76 +530,22 @@ public class Controller {
         }
     }
 
-    //this method takes the selected item that they want to update and makes data entry visible
     @FXML
-    public void updateStopTimes() {
-        //make field invisible until one of the items is selected
-        //System.out.println("hehe");
-        timeTextField.clear();
-        String toField = "Nothing selected";
-        String format = "";
-
-
-        //making gui elements available to user
-        showUpdateGUI(true);
-
-        tripIdFormat.setText("Format: '12345678_9ABC'");
-
-        if (timeForwards.isSelected()) {
-            toField = "Enter amount to shift forward arrival and departure times:";
-            format = "HH:MM:SS";
+    public void stopTripCount() {
+        try {
+            if (imported == true) {
+                //reset area
+                textArea1.setText("");
+                //set to list of speeds
+                textArea1.setText(GTFSeditor.displayStopTripCount());
+            } else {
+                throwAlert("NullPointerException", "No GTFS files have been imported");
+            }
+        }  catch (NullPointerException e) {
+            throwAlert("Null Pointer Exception",
+                    "Make sure files are imported into the application before" +
+                            " requesting stops's trip counts");
         }
-        if (timeBackwards.isSelected()) {
-            toField = "Enter amount to shift back arrival and departure times:";
-            format = "HH:MM:SS";
-        }
-
-        if (drop_off_type.isSelected()) {
-            toField = "Enter new drop off type:\n";
-        }
-        if (pickup_type.isSelected()) {
-            toField = "Enter new pickup type:\n";
-
-        }
-        if (stop_headsign.isSelected()) {
-            toField = "Enter new stop headsign:\n";
-        }
-        if (stop_id.isSelected()) {
-            toField = "Enter new stop id:\n";
-            format = "####";
-
-        }
-        if (stop_sequence.isSelected()) {
-            toField = "Enter new stop sequence:\n";
-            format = "integer value";
-        }
-        if (trip_id.isSelected()) {
-            toField = "Enter new trip id:\n";
-            format = "'12345678_9ABC'";
-        }
-
-        instrLabel.setText(toField);
-        enterButton.setDisable(false);
-        formatLabel.setText("Format: " + format);
-        System.out.println(toField);
-    }
-
-    void showUpdateGUI(boolean b) {
-        timeTextField.visibleProperty().setValue(b);
-        timeTextField1.visibleProperty().setValue(b);
-        instrLabel.visibleProperty().setValue(b);
-        instrLabel1.visibleProperty().setValue(b);
-        enterButton.visibleProperty().setValue(b);
-        backButton.visibleProperty().setValue(b);
-        formatLabel.visibleProperty().setValue(b);
-        tripIdFormat.visibleProperty().setValue(b);
-
-        textArea1.visibleProperty().setValue(!b);
-        tripSpeedButton.visibleProperty().setValue(!b);
-        tripDistanceButton.visibleProperty().setValue(!b);
-        nextTripButton.visibleProperty().setValue(!b);
-        nextTripText.visibleProperty().setValue(!b);
-        nextTripLabel.visibleProperty().setValue(!b);
     }
 
     /**
@@ -551,10 +555,18 @@ public class Controller {
     @FXML
     public void enterUpdate() {
         try {
-            if (imported == true) {
+            if (imported == true) { //identifier is id of thing you want to change
                 String updateInfo = timeTextField.getText();
-                LinkedList<StopTime> times_with_common_trip = GTFSeditor.stopTimes.get(timeTextField1.getText()); //now has list of stop times with a specific stop id
+                String identifier = timeTextField1.getText();
+                String current = null;
+
+                LinkedList<StopTime> times_with_common_trip = GTFSeditor.stopTimes.get(identifier); //now has list of stop times with a specific stop id
                 int timeListSize = times_with_common_trip.size();
+
+                Iterator<String> stopItr = GTFSeditor.stops.keySet().iterator();
+                Iterator<String> routeItr = GTFSeditor.routes.keySet().iterator();
+                Iterator<String> tripItr = GTFSeditor.trips.keySet().iterator();
+
 
                 //TODO
                 if (timeForwards.isSelected()) {
@@ -590,6 +602,176 @@ public class Controller {
                         times_with_common_trip.get(i).setTrip_id(updateInfo);
                     }
                 }
+                /*------------------------------------------------------------*/
+                //Attributes for stop
+                else if (stop_sequence.isSelected()) {
+                    while (stopItr.hasNext()) {
+                        current = stopItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.stops.get(identifier).setStop_id(updateInfo);
+                        }
+                    }
+                } else if (trip_id.isSelected()) {
+                    while (stopItr.hasNext()) {
+                        current = stopItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.stops.get(identifier).setTripNumber(Integer.parseInt(updateInfo));
+                        }
+                    }
+                } else if (stop_id_item.isSelected()) {
+                    while (stopItr.hasNext()) {
+                        current = stopItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.stops.get(identifier).setStop_id(updateInfo);
+                        }
+                    }
+                } else if (stop_desc_item.isSelected()) {
+                    while (stopItr.hasNext()) {
+                        current = stopItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.stops.get(identifier).setStop_desc(updateInfo);
+                        }
+                    }
+                } else if (stop_lat.isSelected()) {
+                    while (stopItr.hasNext()) {
+                        current = stopItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.stops.get(identifier).setStop_lat(Double.parseDouble(updateInfo));
+                        }
+                    }
+                } else if (stop_long.isSelected()) {
+                    while (stopItr.hasNext()) {
+                        current = stopItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.stops.get(identifier).setStop_long(Double.parseDouble(updateInfo));
+                        }
+                    }
+                } else if (stop_name.isSelected()) {
+                    while (stopItr.hasNext()) {
+                        current = stopItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.stops.get(identifier).setStop_name(updateInfo);
+                        }
+                    }
+                }
+                /*-------------------------------------------*/
+                //Attributed for routes
+                else if (route_id_item.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_id(updateInfo);
+                        }
+                    }
+                } else if (agency_id_item.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setAgency_id(updateInfo);
+                        }
+                    }
+                } else if (route_short_name.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_short_name(updateInfo);
+                        }
+                    }
+                } else if (route_long_name.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_long_name(updateInfo);
+                        }
+                    }
+                } else if (route_desc_item.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_desc(updateInfo);
+                        }
+                    }
+                } else if (route_type_item.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_type(updateInfo);
+                        }
+                    }
+                } else if (route_url_item.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_url(updateInfo);
+                        }
+                    }
+                } else if (route_color_item.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_color(updateInfo);
+                        }
+                    }
+                } else if (route_url_item.isSelected()) {
+                    while (routeItr.hasNext()) {
+                        current = routeItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.routes.get(identifier).setRoute_url(updateInfo);
+                        }
+                    }
+                }
+                /*------------------------------------------------*/
+                //Attributes for trips
+                else if (trip_id_item.isSelected()) {
+                    while (tripItr.hasNext()) {
+                        current = tripItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.trips.get(identifier).setTrip_id(updateInfo);
+                        }
+                    }
+                } else if (service_id_item.isSelected()) {
+                    while (tripItr.hasNext()) {
+                        current = tripItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.trips.get(identifier).setService_id(updateInfo);
+                        }
+                    }
+                } else if (trip_headsign_item.isSelected()) {
+                    while (tripItr.hasNext()) {
+                        current = tripItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.trips.get(identifier).setTrip_headsign(updateInfo);
+                        }
+                    }
+                } else if (route_id_item_1.isSelected()) {
+                    while (tripItr.hasNext()) {
+                        current = tripItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.trips.get(identifier).setRoute_id(updateInfo);
+                        }
+                    }
+                } else if (direction_id_item.isSelected()) {
+                    while (tripItr.hasNext()) {
+                        current = tripItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.trips.get(identifier).setDirection_id(updateInfo);
+                        }
+                    }
+                } else if (block_id_item.isSelected()) {
+                    while (tripItr.hasNext()) {
+                        current = tripItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.trips.get(identifier).setBlock_id(updateInfo);
+                        }
+                    }
+                } else if (shape_id_item.isSelected()) {
+                    while (tripItr.hasNext()) {
+                        current = tripItr.next();
+                        if (current.equalsIgnoreCase(identifier)) {
+                            GTFSeditor.trips.get(identifier).setBlock_id(updateInfo);
+                        }
+                    }
+                }
                 throwInfoAlert("Update Status", "All stop times in group were updated successfully");
 
                 showUpdateGUI(false);
@@ -599,12 +781,15 @@ public class Controller {
 
         } catch (NumberFormatException E) {
             throwAlert("NumberFormatExeption", "Enter valid update data");
+            E.printStackTrace();
         } catch (NullPointerException E) {
             throwAlert("NullPointerException", "Enter valid tripId");
         } catch (DateTimeParseException e) {
             throwAlert("DateTimeParseException", "Enter a valid time");
         } catch (Exception E) {
             throwAlert("Formatting Error", "Enter valid update data");
+            E.printStackTrace();
+
         }
     }
 
@@ -647,6 +832,31 @@ public class Controller {
 
     }
 
+
+    void showUpdateGUI(boolean b) {
+        timeTextField.visibleProperty().setValue(b);
+        timeTextField1.visibleProperty().setValue(b);
+        instrLabel.visibleProperty().setValue(b);
+        instrLabel1.visibleProperty().setValue(b);
+        enterButton.visibleProperty().setValue(b);
+        backButton.visibleProperty().setValue(b);
+        formatLabel.visibleProperty().setValue(b);
+        tripIdFormat.visibleProperty().setValue(b);
+        updateLabel.visibleProperty().setValue(b);
+        updateLabel1.visibleProperty().setValue(b);
+
+        textArea1.visibleProperty().setValue(!b);
+        tripSpeedButton.visibleProperty().setValue(!b);
+        tripDistanceButton.visibleProperty().setValue(!b);
+        nextTripButton.visibleProperty().setValue(!b);
+        nextTripText.visibleProperty().setValue(!b);
+        nextTripLabel.visibleProperty().setValue(!b);
+        dataStructuresLabel.visibleProperty().setValue(!b);
+        stopCountButton.visibleProperty().setValue(!b);
+
+
+    }
+
     @FXML
     public void searchEntered() {
         List results;
@@ -682,6 +892,256 @@ public class Controller {
         alert.setHeaderText(headerText);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    //this method takes the selected item that they want to update and makes data entry visible
+    @FXML
+    public void updateAttributeGUI() {
+        //make field invisible until one of the items is selected
+        //System.out.println("hehe");
+        timeTextField.clear();
+        String toTopField = "";
+        String toBotField = "";
+        String topFormat = "n/a";
+        String botFormat = "";
+        String instr = "";
+
+        //making gui elements available to user
+        showUpdateGUI(true);
+
+        /*------------------------------------------------------------*/
+        //Attributes for stop time
+        if (timeForwards.isSelected()) {
+            toTopField = "Enter amount to shift forward arrival and departure times:";
+            toBotField = "Enter trip_id of group:";
+            topFormat = "'HH:MM:SS'";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop Times/" + timeForwards.getText();
+        }
+        if (timeBackwards.isSelected()) {
+            toTopField = "Enter amount to shift back arrival and departure times:";
+            toBotField = "Enter trip_id of group:";
+            topFormat = "HH:MM:SS";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop Times/" + timeBackwards.getText();
+        }
+        if (drop_off_type.isSelected()) {
+            toTopField = "Enter new drop off type:\n";
+            toBotField = "Enter trip_id of group:";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop Times/" + drop_off_type.getText();
+
+        }
+        if (pickup_type.isSelected()) {
+            toTopField = "Enter new pickup type:\n";
+            toBotField = "Enter trip_id of group:";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop Times/" + pickup_type.getText();
+
+        }
+        if (stop_headsign.isSelected()) {
+            toTopField = "Enter new stop headsign:\n";
+            toBotField = "Enter trip_id of group:";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop Times/" + stop_headsign.getText();
+
+        }
+
+        /*------------------------------------------------------------*/
+        //Attributes for stop
+        if (stop_id.isSelected()) {
+            toTopField = "Enter new stop id:\n";
+            toBotField = "Enter trip_id of group:";
+            topFormat = "'####'";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop/" + stop_id.getText();
+
+        }
+        if (stop_sequence.isSelected()) {
+            toTopField = "Enter new stop sequence:\n";
+            topFormat = "integer value";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop/" + stop_sequence.getText();
+
+        }
+        if (trip_id.isSelected()) {
+            toTopField = "Enter new trip id:\n";
+            toBotField = "Enter trip_id of group:";
+            topFormat = "'12345678_9ABC'";
+            botFormat = "'12345678_9ABC'";
+            instr = "Stop/" + trip_id.getText();
+
+        }
+        if (stop_id_item.isSelected()) {
+            toTopField = "Enter new stop_id:\n";
+            toBotField = "Enter stop_id to update:";
+            topFormat = "'####'";
+            botFormat = "'####'";
+            instr = "Stop/" + stop_id_item.getText();
+
+        }
+        if (stop_desc_item.isSelected()) {
+            toTopField = "Enter new stop description:\n";
+            toBotField = "Enter stop_id to update:";
+            botFormat = "'####'";
+            instr = "Stop/" + stop_desc_item.getText();
+
+        }
+        if (stop_lat.isSelected()) {
+            toTopField = "Enter new stop latitude:\n";
+            toBotField = "Enter stop_id to change:";
+            topFormat = "'(+/-) ##.#######'";
+            botFormat = "'####'";
+            instr = "Stop/" + stop_lat.getText();
+        }
+        if (stop_long.isSelected()) {
+            toTopField = "Enter new stop longitude:\n";
+            toBotField = "Enter stop_id to change:";
+            topFormat = "'(+/-) ##.#######'";
+            botFormat = "'####'";
+            instr = "Stop/" + stop_long.getText();
+
+        }
+        if (stop_name.isSelected()) {
+            toTopField = "Enter new stop latitude:\n";
+            toBotField = "Enter stop_id to change:";
+            topFormat = "String";
+            botFormat = "'####'";
+            instr = "Stop/" + stop_name.getText();
+
+        }
+        /*-------------------------------------------*/
+        //Attributed for routes
+        if (route_id_item.isSelected()) {
+            toTopField = "Enter new route_id:\n";
+            toBotField = "Enter route_id to change:";
+            topFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + route_id_item.getText();
+
+        }
+        if (agency_id_item.isSelected()) {
+            toTopField = "Enter new agency_id:\n";
+            toBotField = "Enter route_id to update:";
+            topFormat = "String (ex. 'MCTS')";
+            botFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + agency_id_item.getText();
+
+        }
+        if (route_short_name.isSelected()) {
+            toTopField = "Enter new short name:\n";
+            toBotField = "Enter route_id to update:";
+            topFormat = "Similar to route_id";
+            botFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + route_short_name.getText();
+
+        }
+        if (route_long_name.isSelected()) {
+            toTopField = "Enter new long name:\n";
+            toBotField = "Enter route_id to update:";
+            topFormat = "String (location)";
+            botFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + route_long_name.getText();
+
+        }
+        if (route_desc_item.isSelected()) {
+            toTopField = "Enter new route description:\n";
+            toBotField = "Enter route_id to update:";
+            topFormat = "String (describe route)";
+            botFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + route_desc_item.getText();
+
+        }
+        if (route_type_item.isSelected()) {
+            toTopField = "Enter new route type:\n";
+            toBotField = "Enter route_id to update:";
+            topFormat = "'#'";
+            botFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + route_type_item.getText();
+
+        }
+        if (route_url_item.isSelected()) {
+            toTopField = "Enter new route url:\n";
+            toBotField = "Enter route_id to update:";
+            topFormat = "n/a";
+            botFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + route_url_item.getText();
+
+        }
+        if (route_color_item.isSelected()) {
+            toTopField = "Enter new route color:\n";
+            toBotField = "Enter route_id to update:";
+            topFormat = "'######' (rgb hex code)";
+            botFormat = "String (ex. '12', 'GGR', '30X')";
+            instr = "Route/" + route_color_item.getText();
+
+        }
+        
+        /*------------------------------------------------*/
+        //Attributes for trips
+        if (trip_id_item.isSelected()) {
+            toTopField = "Enter new trip_id:\n";
+            toBotField = "Enter trip_id to change:";
+            topFormat = "'12345678_9ABC'";
+            botFormat = "'12345678_9ABC'";
+            instr = "Trip/" + trip_id_item.getText();
+
+        }
+        if (service_id_item.isSelected()) {
+            toTopField = "Enter new service_id:\n";
+            toBotField = "Enter trip_id to update:";
+            topFormat = "'DD-MONTH-DAY'(ex. '17-SEP_SUN')";
+            botFormat = "'12345678_9ABC'";
+            instr = "Trip/" + service_id_item.getText();
+
+        }
+        if (trip_headsign_item.isSelected()) {
+            toTopField = "Enter new trip headsign:\n";
+            toBotField = "Enter trip_id to update:";
+            topFormat = "String (ex. 'DOWNTOWN' or '60TH-VLIET')";
+            botFormat = "'12345678_9ABC'";
+            instr = "Trip/" + trip_headsign_item.getText();
+
+        }
+        if (route_id_item_1.isSelected()) {
+            toTopField = "Enter new trip route_id:\n";
+            toBotField = "Enter trip_id to update:";
+            topFormat = "String (ex. '12', 'GGR', '30X')";
+            botFormat = "'12345678_9ABC'";
+            instr = "Trip/" + route_id_item_1.getText();
+
+        }
+        if (direction_id_item.isSelected()) {
+            toTopField = "Enter new trip direction_id:\n";
+            toBotField = "Enter trip_id to update:";
+            topFormat = "'0' or '1'";
+            botFormat = "'12345678_9ABC'";
+            instr = "Trip/" + direction_id_item.getText();
+
+        }
+        if (block_id_item.isSelected()) {
+            toTopField = "Enter new trip block_id:\n";
+            toBotField = "Enter trip_id to update:";
+            topFormat = "'#####'";
+            botFormat = "'12345678_9ABC'";
+            instr = "Trip/" + block_id_item.getText();
+
+        }
+        if (shape_id_item.isSelected()) {
+            toTopField = "Enter new trip block_id:\n";
+            toBotField = "Enter trip_id to update:";
+            topFormat = "'DD-MONTH_##_#_##'   (ex '17-SEP_64_0_23')";
+            botFormat = "'12345678_9ABC'";
+            instr = "Trip/" + shape_id_item.getText();
+
+        }
+
+        /*------------------------------------------------*/
+        instrLabel.setText(toTopField);
+        instrLabel1.setText(toBotField);
+        updateLabel1.setText(instr);
+        enterButton.setDisable(false);
+        formatLabel.setText("Format: " + topFormat);
+        tripIdFormat.setText("Format: " + botFormat);
     }
 
 }

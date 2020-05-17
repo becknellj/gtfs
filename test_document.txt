@@ -107,6 +107,12 @@ Milwaukee GTFS files and comparing two separate
 Trip program distances compared to those trips'
 distances hand calculated.
 
+Test conducted on Feature 4
+Author: Andrew nebel
+This feature was tested via importing the
+Milwaukee GTFS files and comparing two separate
+stop counts from the program compared to those stop counts
+hand calculated via a scan of a stopTimes document.
 
 
 Daniel Griffith
