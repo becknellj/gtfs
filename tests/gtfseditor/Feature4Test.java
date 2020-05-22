@@ -21,6 +21,7 @@ class Feature4Test {
     @BeforeEach
     void setUp() {
         GTFS = new Application();
+        Controller controller1 = new Controller();
 
     }
 
@@ -37,6 +38,14 @@ class Feature4Test {
                 () -> {
                     GTFS.displayStopTripCount();
                 });
+    }
+
+    //Andrew Nebel
+    //This test makes sure nothing is returned
+    //if data structures empty
+    @Test
+    void zeroCheck(){
+        assertEquals("", GTFS.displayStopTripCount());
     }
 
 }

@@ -533,12 +533,15 @@ public class Controller {
     @FXML
     public void stopTripCount() {
         try {
+            //check for imported files
+                //if imported go ahead
             if (imported == true) {
                 //reset area
                 textArea1.setText("");
                 //set to list of speeds
                 textArea1.setText(GTFSeditor.displayStopTripCount());
             } else {
+                //else tell user no files imported
                 throwAlert("NullPointerException", "No GTFS files have been imported");
             }
         }  catch (NullPointerException e) {

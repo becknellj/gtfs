@@ -108,11 +108,23 @@ Trip program distances compared to those trips'
 distances hand calculated.
 
 Test conducted on Feature 4
-Author: Andrew nebel
+Author: Andrew Nebel
 This feature was tested via importing the
 Milwaukee GTFS files and comparing two separate
 stop counts from the program compared to those stop counts
 hand calculated via a scan of a stopTimes document.
+
+Andrew Nebel
+This test makes sure nothing is returned
+if data structures empty
+@Test
+void zeroCheck()
+
+Andrew Nebel
+This test makes sure that if the data structures
+are empty that the user is made aware.
+@Test
+void emptyDataStructures()
 
 
 Daniel Griffith
