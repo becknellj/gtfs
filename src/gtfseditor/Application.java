@@ -161,6 +161,64 @@ public class Application {
     }
 
     /**
+     * Searches for trips based on route id
+     * @param route_id Route id
+     */
+    public Hashtable<Integer, String> searchRouteNextTrip(String route_id, ArrayList<String> timeKeys) {
+        //for loop for each trip id key in the stoptimes im looping for the stop id
+        LinkedList<String> temp = new LinkedList<>();
+        String currentKey;
+        String currentTempKey;
+        Hashtable<Integer, String> closestTimes = new Hashtable<>();
+        int index = 0;
+        String value = "";
+
+        //nested loop for filtering trip ids
+        for (int i = 0; i < timeKeys.size(); i++) {
+            currentKey = timeKeys.get(i);
+            for (int j = 0; j < stopTimes.get(currentKey).size(); j++) {
+
+                StopTime stopTime = stopTimes.get(currentKey).get(j);
+                String s = stopTime.getStop_id();
+
+                if (s.equals(route_id) && !temp.contains(currentKey)) { //if stoptime has that stop id, add the trip id to a list
+                    temp.add(currentKey);
+
+                }
+            } //temp has list of trip ids with desired stop
+        }
+        for (int k = 0; k < temp.size(); k++) {
+
+            currentTempKey = temp.get(k);
+            for (int l = 0; l < stopTimes.get(currentTempKey).size(); l++) {
+
+                StopTime stopTime = stopTimes.get(currentTempKey).get(l);
+                String departureString = stopTime.getDeparture_time();
+
+                if (departureString.substring(0, 2).equals("24")) {
+                    departureString = departureString.replace("24", "00");
+                } else if (departureString.substring(0, 2).equals("25")) {
+                    departureString = departureString.replace("25", "01");
+                }
+
+                LocalTime departureTime = LocalTime.parse(departureString);
+                LocalTime now = LocalTime.now();
+
+                if (departureTime.isAfter(now)) {
+                    if (!departureTime.minusMinutes(60).isAfter(now)) { //if the departure time is more than an hour away no go
+                        value = "Trip_id: " + currentTempKey + " Departure time: " + departureTime.toString() + "\n";
+
+                        if (!closestTimes.containsValue(value)) {
+                            closestTimes.put(index++, value);
+                        }
+                    }
+                }
+            }
+        }//now temp has filtered list of trip ids
+        return closestTimes;
+    }
+
+    /**
      * @param trip_id
      */
     public List searchTrip(String trip_id) {

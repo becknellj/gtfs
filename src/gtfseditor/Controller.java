@@ -114,6 +114,9 @@ public class Controller {
     @FXML
     TextField timeTextField1;
     @FXML
+    TextField routeIDsearchBox;
+
+    @FXML
     Label instrLabel;
     @FXML
     Label instrLabel1;
@@ -788,6 +791,40 @@ public class Controller {
                 textArea1.clear();
 
                 textArea1.appendText("Nearest departure times for stop_id  " + stop_id + ":\n\n");
+
+                for (int i = 0; i < closestTimes.size(); i++) {
+                    //System.out.println(closestTimes.get(i));
+                    finalIds = closestTimes.get(i); //now has array with id and time
+                    textArea1.appendText(finalIds);
+                }
+            } else {
+                throwAlert("NullPointerException", "No GTFS files have been imported");
+            }
+
+        } catch (NullPointerException E) {
+            throwAlert("NullPointerException", "No stop id was entered");
+            E.printStackTrace();
+        } catch (NumberFormatException e) {
+            throwAlert("NumberFormatException", "Incorrect format for stop id, please enter valid ID");
+        } catch (Exception e) {
+            throwAlert("Input Error", "Try again.");
+        }
+
+    }
+
+    @FXML
+    public void searchRouteID() {
+        String route_id;
+        Hashtable<Integer, String> closestTimes;
+        String finalIds = "";
+
+        try {
+            if (imported == true) {
+                route_id = routeIDsearchBox.getText();
+                closestTimes = GTFSeditor.searchRouteNextTrip(route_id, timeKeys);
+                textArea1.clear();
+
+                textArea1.appendText("Nearest departure times for route_id  " + route_id + ":\n\n");
 
                 for (int i = 0; i < closestTimes.size(); i++) {
                     //System.out.println(closestTimes.get(i));
