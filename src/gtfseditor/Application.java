@@ -78,34 +78,52 @@ public class Application {
     /**
      * @param route_id
      */
-    public List searchRoute(String route_id) {
-        return null;
+    public List<String> searchRoute(String route_id) {
+        List<String> tripIDs = new ArrayList<>();
+        List<String> stopIDs = new ArrayList<>();
+        for (String tripsKey : trips.keySet()) {
+            Trip trip = trips.get(tripsKey);
+            String routeID = trip.getRoute_id();
+            if (route_id.equals(routeID)) {
+                tripIDs.add(trip.getTrip_id());
+            }
+        }
+        for (String stopTimeKey : stopTimes.keySet()) {
+            StopTime stopTime = stopTimes.get(stopTimeKey).getFirst();
+            String tripID = stopTime.getTrip_id();
+            for (Object id : tripIDs) {
+                if (tripID.equals(id)) {
+                    stopIDs.add(stopTime.getStop_id());
+                }
+            }
+        }
+        return stopIDs;
     }
 
     /**
      * @param stop_id
      */
-    public List searchStop(String stop_id) {
-        List tripIds = new ArrayList();
-        List routeIds = new ArrayList();
+    public List<String> searchStop(String stop_id) {
+        List<String> tripIDs = new ArrayList<>();
+        List<String> routeIDs = new ArrayList<>();
         //search the stopTimes HashTable for the stop_id and add all trip_ids associated with the stop_id to a list
         for (String stopTimeKey : stopTimes.keySet()){
             StopTime stopTime = stopTimes.get(stopTimeKey).get(3);
-            String stopId = stopTime.getStop_id();
-            if (stop_id.equals(stopId)) {
-                tripIds.add(stopTimeKey);
+            String stopID = stopTime.getStop_id();
+            if (stop_id.equals(stopID)) {
+                tripIDs.add(stopTimeKey);
             }
         }
 		//search the trips HashTable for trip_ids and add all route_ids associated with those trip_ids to a list
-        for (String tripKey: trips.keySet()){
-            String tripId = trips.get(tripKey).getTrip_id();
-            for (Object id : tripIds) {
-                if (tripId.equals(id)) {
-                    routeIds.add(trips.get(tripKey).getRoute_id());
+        for (String tripKey : trips.keySet()){
+            String tripID = trips.get(tripKey).getTrip_id();
+            for (Object id : tripIDs) {
+                if (tripID.equals(id)) {
+                    routeIDs.add(trips.get(tripKey).getRoute_id());
                 }
             }
 		}
-        return routeIds;
+        return routeIDs;
     }
 
     /**
