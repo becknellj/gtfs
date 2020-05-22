@@ -44,6 +44,8 @@ public class Controller {
     @FXML
     CheckBox stopIdSearch;
     @FXML
+    Label nextTripLabel1;
+    @FXML
     MenuButton updateMenuButton;
     @FXML
     RadioMenuItem timeForwards;
@@ -61,6 +63,8 @@ public class Controller {
     RadioMenuItem stop_sequence;
     @FXML
     RadioMenuItem trip_id;
+    @FXML
+    Label searchRouteIDlabel;
 
     @FXML
     RadioMenuItem stop_id_item;
@@ -115,6 +119,8 @@ public class Controller {
     TextField timeTextField1;
     @FXML
     TextField routeIDsearchBox;
+    @FXML
+    Button searchRouteIDButton;
 
     @FXML
     Label instrLabel;
@@ -144,7 +150,10 @@ public class Controller {
     Button backButton;
     @FXML
     Button stopCountButton;
-
+    @FXML
+    Button searchStopButton;
+    @FXML
+    TextField searchStopBar;
 
     @FXML
     TextArea searchBar;
@@ -893,20 +902,25 @@ public class Controller {
         nextTripLabel.visibleProperty().setValue(!b);
         dataStructuresLabel.visibleProperty().setValue(!b);
         stopCountButton.visibleProperty().setValue(!b);
+        searchRouteIDlabel.visibleProperty().setValue(!b);
+        routeIDsearchBox.visibleProperty().setValue(!b);
+        searchRouteIDButton.visibleProperty().setValue(!b);
+        nextTripLabel1.visibleProperty().setValue(!b);
+        searchStopBar.visibleProperty().setValue(!b);
+        searchStopButton.visibleProperty().setValue(!b);
 
 
     }
 
     @FXML
-    public void searchEntered() {
+    public void searchRoute() {
         List results;
-        if (stopIdSearch.isSelected()) {
-            results = GTFSeditor.searchStop(searchBar.getText());
-        } else {
-            results = GTFSeditor.searchRoute(searchBar.getText());
-        }
+        results = GTFSeditor.searchRoute(searchStopBar.getText());
+        //clear old text
+        textArea1.setText("");
         textArea1.setText(results.toString());
     }
+
 
     /**
      * Presents an alert containing exception information

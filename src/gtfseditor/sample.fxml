@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" prefHeight="352.0" prefWidth="500.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gtfseditor.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="395.0" prefWidth="514.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gtfseditor.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -22,9 +22,9 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane prefHeight="395.0" prefWidth="544.0">
+      <Pane prefHeight="441.0" prefWidth="500.0">
          <children>
-            <MenuButton fx:id="updateMenuButton" layoutX="241.0" layoutY="128.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Update">
+            <MenuButton fx:id="updateMenuButton" layoutX="227.0" layoutY="128.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Update">
               <items>
                   <Menu mnemonicParsing="false" text="Stop">
                     <items>
@@ -83,10 +83,10 @@
             <Label layoutX="12.0" layoutY="25.0" prefHeight="17.0" prefWidth="233.0" text="Select each .txt file in the FTFS file:" />
             <Button fx:id="importButton" layoutX="14.0" layoutY="128.0" mnemonicParsing="false" onAction="#importFiles" text="Import" />
             <Button fx:id="displayButton" layoutX="156.0" layoutY="128.0" mnemonicParsing="false" onAction="#displayDataStructure" text="Display" />
-            <Button fx:id="importStopsButton" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" onAction="#openStopsFile" prefWidth="89.0" text="stops.txt" />
-            <Button fx:id="importTripsButton" layoutX="128.0" layoutY="58.0" mnemonicParsing="false" onAction="#openTripsFile" prefWidth="89.0" text="trips.txt" />
-            <Button fx:id="importStopTimesButton" layoutX="235.0" layoutY="58.0" mnemonicParsing="false" onAction="#openStopTimesFile" text="stop_times.txt" />
-            <Button fx:id="importRoutesButton" layoutX="346.0" layoutY="58.0" mnemonicParsing="false" onAction="#openRoutesFile" prefWidth="89.0" text="routes.txt" />
+            <Button fx:id="importStopsButton" layoutX="14.0" layoutY="53.0" mnemonicParsing="false" onAction="#openStopsFile" prefWidth="89.0" text="stops.txt" />
+            <Button fx:id="importTripsButton" layoutX="128.0" layoutY="53.0" mnemonicParsing="false" onAction="#openTripsFile" prefWidth="89.0" text="trips.txt" />
+            <Button fx:id="importStopTimesButton" layoutX="235.0" layoutY="53.0" mnemonicParsing="false" onAction="#openStopTimesFile" text="stop_times.txt" />
+            <Button fx:id="importRoutesButton" layoutX="346.0" layoutY="53.0" mnemonicParsing="false" onAction="#openRoutesFile" prefWidth="89.0" text="routes.txt" />
             <Label layoutX="17.0" layoutY="103.0" text="Once a file is selected for each click inport" />
             <Label fx:id="dataStructuresLabel" layoutX="14.0" layoutY="165.0" text="The data structures are displayed via the &quot;Display&quot; button" />
             <CheckBox fx:id="stopCheck" disable="true" layoutX="48.0" layoutY="83.0" mnemonicParsing="false" />
@@ -113,7 +113,10 @@
             <Button fx:id="stopCountButton" layoutX="319.0" layoutY="244.0" mnemonicParsing="false" onAction="#stopTripCount" text="Display Stop Trip Count" />
             <Label fx:id="searchRouteIDlabel" layoutX="269.0" layoutY="294.0" prefHeight="17.0" prefWidth="241.0" text="Enter route_id to view upcoming trips" />
             <Button fx:id="searchRouteIDButton" layoutX="391.0" layoutY="312.0" mnemonicParsing="false" onAction="#searchRouteID" prefHeight="25.0" prefWidth="105.0" text="Display Trips" />
-            <TextField fx:id="routeIDsearchBox" layoutX="274.0" layoutY="312.0" prefHeight="25.0" prefWidth="121.0" />
+            <TextField fx:id="routeIDsearchBox" layoutX="274.0" layoutY="312.0" prefHeight="25.0" prefWidth="114.0" />
+            <Label fx:id="nextTripLabel1" layoutX="14.0" layoutY="337.0" text="Enter Route_id to view all stops on route" />
+            <TextField fx:id="searchStopBar" layoutX="12.0" layoutY="354.0" prefHeight="25.0" prefWidth="174.0" />
+            <Button fx:id="searchStopButton" layoutX="188.0" layoutY="354.0" mnemonicParsing="false" onAction="#searchRoute" text="Display Stops" />
          </children>
       </Pane>
    </children>

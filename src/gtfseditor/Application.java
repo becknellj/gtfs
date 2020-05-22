@@ -108,7 +108,7 @@ public class Application {
         List<String> routeIDs = new ArrayList<>();
         //search the stopTimes HashTable for the stop_id and add all trip_ids associated with the stop_id to a list
         for (String stopTimeKey : stopTimes.keySet()){
-            StopTime stopTime = stopTimes.get(stopTimeKey).get(3);
+            StopTime stopTime = stopTimes.get(stopTimeKey).get(0);
             String stopID = stopTime.getStop_id();
             if (stop_id.equals(stopID)) {
                 tripIDs.add(stopTimeKey);
