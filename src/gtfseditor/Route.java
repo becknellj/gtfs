@@ -31,6 +31,7 @@ public class Route {
         this.route_short_name = route_short_name;
         this.route_type = route_type;
         this.route_url = route_url;
+        this.stops = new ArrayList();
     }
 
     /**
