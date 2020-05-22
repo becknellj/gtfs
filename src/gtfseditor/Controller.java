@@ -483,7 +483,7 @@ public class Controller {
     public void displayDataStructure() {
         throwInfoAlert("Data Structure Info",
                 "There are:\n" + GTFSeditor.stops.size() + " stops\n" +
-                        "There are:\n" + GTFSeditor.stopTimes.size() + " routes with stopTimes\n" +
+                        "There are:\n" + GTFSeditor.stopTimes.size() + " stopTimes\n" +
                         "There are:\n" + GTFSeditor.trips.size() + " trips\n" +
                         "There are:\n" + GTFSeditor.routes.size() + " routes\n");
     }

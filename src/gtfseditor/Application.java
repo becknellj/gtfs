@@ -240,7 +240,7 @@ public class Application {
             timeFirst = ((StopTime) (currentTripStopList.get(0))).getArrival_time();
             pastStopid = ((StopTime) (currentTripStopList.get(0))).getStop_id();
             //for each stop after the first
-            for (int i = 0; i < currentTripStopList.size(); i++) {
+            for (int i = 1; i < currentTripStopList.size(); i++) {
                 currentStopid = ((StopTime) (currentTripStopList.get(i))).getStop_id();
                 //get distance between past and current stop
                 tripDistance += distance(stops.get(pastStopid).getStop_lat(), stops.get(currentStopid).getStop_lat(), stops.get(pastStopid).getStop_long(), stops.get(currentStopid).getStop_long());
@@ -303,7 +303,7 @@ public class Application {
             //get first stop
             pastStopid = ((StopTime) (currentTripStopList.get(0))).getStop_id();
             //for each stop after the first
-            for (int i = 0; i < currentTripStopList.size(); i++) {
+            for (int i = 1; i < currentTripStopList.size(); i++) {
                 currentStopid = ((StopTime) (currentTripStopList.get(i))).getStop_id();
                 //get distance between past and current stop
                 tripDistance += distance(stops.get(pastStopid).getStop_lat(), stops.get(currentStopid).getStop_lat(), stops.get(pastStopid).getStop_long(), stops.get(currentStopid).getStop_long());

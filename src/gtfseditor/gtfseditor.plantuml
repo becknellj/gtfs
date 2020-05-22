@@ -1,0 +1,291 @@
+@startuml
+
+title __GTFSEDITOR's Class Diagram__\n
+
+  namespace gtfseditor {
+    class gtfseditor.Application {
+        # routes : Hashtable<String, Route>
+        # stopTimes : Hashtable<String, LinkedList<StopTime>>
+        # stops : Hashtable<String, Stop>
+        # trips : Hashtable<String, Trip>
+        # zeroFlag : boolean
+        + Application()
+        + calculateBusPosition()
+        + displayAllTripDistance()
+        + displayAllTripSpeed()
+        + displayStopTripCount()
+        + displayTripCount()
+        + distance()
+        + export()
+        + getAverageTripSpeed()
+        + getTimeDifferenceHours()
+        + importFiles()
+        + searchRoute()
+        + searchStop()
+        + searchStopNextTrip()
+        + searchTrip()
+        + updateAttribute()
+        + updateGroupStopTime()
+    }
+  }
+  
+
+  namespace gtfseditor {
+    class gtfseditor.Controller {
+        {static} ~ GTFSeditor : Application
+        ~ agency_id_item : RadioMenuItem
+        ~ backButton : Button
+        ~ block_id_item : RadioMenuItem
+        ~ dataStructuresLabel : Label
+        ~ direction_id_item : RadioMenuItem
+        ~ drop_off_type : RadioMenuItem
+        ~ enterButton : Button
+        ~ formatLabel : Label
+        ~ imported : Boolean
+        ~ instrLabel : Label
+        ~ instrLabel1 : Label
+        ~ label1 : Label
+        ~ nextTripButton : Button
+        ~ nextTripLabel : Label
+        ~ nextTripText : TextField
+        ~ pickup_type : RadioMenuItem
+        ~ routeCheck : CheckBox
+        ~ route_color_item : RadioMenuItem
+        ~ route_color_text_item : RadioMenuItem
+        ~ route_desc_item : RadioMenuItem
+        ~ route_id_item : RadioMenuItem
+        ~ route_id_item_1 : RadioMenuItem
+        ~ route_long_name : RadioMenuItem
+        ~ route_short_name : RadioMenuItem
+        ~ route_type_item : RadioMenuItem
+        ~ route_url_item : RadioMenuItem
+        ~ searchBar : TextArea
+        ~ searchButton : Button
+        ~ secondPane : AnchorPane
+        ~ selectedRouteFile : File
+        ~ selectedStopFile : File
+        ~ selectedTimeFile : File
+        ~ selectedTripFile : File
+        ~ service_id_item : RadioMenuItem
+        ~ shape_id_item : RadioMenuItem
+        ~ stopCheck : CheckBox
+        ~ stopCountButton : Button
+        ~ stopIdSearch : CheckBox
+        ~ stopTimeCheck : CheckBox
+        ~ stop_desc_item : RadioMenuItem
+        ~ stop_headsign : RadioMenuItem
+        ~ stop_id : RadioMenuItem
+        ~ stop_id_item : RadioMenuItem
+        ~ stop_lat : RadioMenuItem
+        ~ stop_long : RadioMenuItem
+        ~ stop_name : RadioMenuItem
+        ~ stop_sequence : RadioMenuItem
+        ~ textArea1 : TextArea
+        ~ timeBackwards : RadioMenuItem
+        ~ timeForwards : RadioMenuItem
+        ~ timeKeys : ArrayList
+        ~ timeTextField : TextField
+        ~ timeTextField1 : TextField
+        ~ tripCheck : CheckBox
+        ~ tripDistanceButton : Button
+        ~ tripIdFormat : Label
+        ~ tripSpeedButton : Button
+        ~ trip_headsign_item : RadioMenuItem
+        ~ trip_id : RadioMenuItem
+        ~ trip_id_item : RadioMenuItem
+        ~ updateGroup : ToggleGroup
+        ~ updateLabel : Label
+        ~ updateLabel1 : Label
+        ~ updateMenuButton : MenuButton
+        + backToStart()
+        + displayDataStructure()
+        + displayNextTrips()
+        + enterUpdate()
+        + fileToStopTimes()
+        + fileToTrips()
+        + importFiles()
+        + openRoutesFile()
+        + openStopTimesFile()
+        + openStopsFile()
+        + openTripsFile()
+        + reset()
+        + searchEntered()
+        + stopTripCount()
+        + tripDistances()
+        + tripSpeeds()
+        + updateAttributeGUI()
+        {static} # throwInfoAlert()
+        ~ parseFiles()
+        ~ showUpdateGUI()
+        - fileToRoutes()
+        - fileToStops()
+        - throwAlert()
+    }
+  }
+  
+
+  namespace gtfseditor {
+    class gtfseditor.GUI {
+        + GUI()
+        + changeStopTripTimes()
+        + display()
+        + finalize()
+        + plotGoogleMapsGPS()
+        + routeDragged()
+        + showLegend()
+        + showUpdateMenu()
+    }
+  }
+  
+
+  namespace gtfseditor {
+    class gtfseditor.Main {
+        {static} + main()
+        + start()
+    }
+  }
+  
+
+  namespace gtfseditor {
+    class gtfseditor.Route {
+        - agency_id : String
+        - route_color : String
+        - route_desc : String
+        - route_id : String
+        - route_long_name : String
+        - route_short_name : String
+        - route_type : String
+        - route_url : String
+        - stops : ArrayList
+        + Route()
+        + containsStop()
+        + getAgency_id()
+        + getRoute_color()
+        + getRoute_desc()
+        + getRoute_id()
+        + getRoute_long_name()
+        + getRoute_short_name()
+        + getRoute_type()
+        + getRoute_url()
+        + setAgency_id()
+        + setRoute_color()
+        + setRoute_desc()
+        + setRoute_id()
+        + setRoute_long_name()
+        + setRoute_short_name()
+        + setRoute_type()
+        + setRoute_url()
+        + setStops()
+    }
+  }
+  
+
+  namespace gtfseditor {
+    class gtfseditor.Stop {
+        - stop_desc : String
+        - stop_id : String
+        - stop_lat : double
+        - stop_long : double
+        - stop_name : String
+        - tripNumber : int
+        + Stop()
+        + getStop_desc()
+        + getStop_id()
+        + getStop_lat()
+        + getStop_long()
+        + getStop_name()
+        + getTripNumber()
+        + setStop_desc()
+        + setStop_id()
+        + setStop_lat()
+        + setStop_long()
+        + setStop_name()
+        + setTripNumber()
+    }
+  }
+  
+
+  namespace gtfseditor {
+    class gtfseditor.StopTime {
+        - arrival_time : String
+        - departure_time : String
+        - drop_off_type : String
+        - pickup_type : String
+        - stop_headsign : String
+        - stop_id : String
+        - stop_sequence : String
+        - trip_id : String
+        + StopTime()
+        + getArrival_time()
+        + getDeparture_time()
+        + getDrop_off_type()
+        + getPickup_type()
+        + getStop_headsign()
+        + getStop_id()
+        + getStop_sequence()
+        + getTrip_id()
+        + setArrival_time()
+        + setDeparture_time()
+        + setDrop_off_type()
+        + setPickup_type()
+        + setStop_headsign()
+        + setStop_id()
+        + setStop_sequence()
+        + setTrip_id()
+        {static} # timeShift()
+        ~ checkIdInput()
+    }
+  }
+  
+
+  namespace gtfseditor {
+    class gtfseditor.Trip {
+        - block_id : String
+        - direction_id : String
+        - distance : double
+        - endTime : ZonedDateTime
+        - route_id : String
+        - service_id : String
+        - shape_id : String
+        - startTime : ZonedDateTime
+        - trip_headsign : String
+        - trip_id : String
+        + Trip()
+        + containsRoute()
+        + getAverageSpeed()
+        + getBlock_id()
+        + getDirection_id()
+        + getDistance()
+        + getEndTime()
+        + getRoute_id()
+        + getService_id()
+        + getShape_id()
+        + getStartTime()
+        + getTrip_headsign()
+        + getTrip_id()
+        + setBlock_id()
+        + setDirection_id()
+        + setDistance()
+        + setEndTime()
+        + setRoute_id()
+        + setService_id()
+        + setShape_id()
+        + setStartTime()
+        + setTrip_headsign()
+        + setTrip_id()
+        + updateStartStopTime()
+    }
+  }
+  
+
+  gtfseditor.Main -up-|> javafx.application.Application
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
