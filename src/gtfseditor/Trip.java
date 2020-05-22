@@ -110,11 +110,11 @@ public class Trip {
 
 
 	/**
-	 * 
+	 * Checks if trup contains route
 	 * @param route_id
 	 */
 	public boolean containsRoute(String route_id){
-		return false;
+		return this.route_id.equals(route_id);
 	}
 
 	public double getAverageSpeed(){

@@ -173,15 +173,17 @@ public class Application {
         int index = 0;
         String value = "";
 
+        Trip trip;
         //nested loop for filtering trip ids
         for (int i = 0; i < timeKeys.size(); i++) {
             currentKey = timeKeys.get(i);
             for (int j = 0; j < stopTimes.get(currentKey).size(); j++) {
 
                 StopTime stopTime = stopTimes.get(currentKey).get(j);
-                String s = stopTime.getStop_id();
+                String s = stopTime.getTrip_id();
+                trip = trips.get(s);
 
-                if (s.equals(route_id) && !temp.contains(currentKey)) { //if stoptime has that stop id, add the trip id to a list
+                if (trip.containsRoute(route_id) && !temp.contains(currentKey)) { //if stoptime has that stop id, add the trip id to a list
                     temp.add(currentKey);
 
                 }

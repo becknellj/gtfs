@@ -112,7 +112,7 @@
             <Label fx:id="updateLabel1" layoutX="127.0" layoutY="165.0" prefHeight="17.0" prefWidth="206.0" text="Label" textFill="#2412c9" visible="false" />
             <Button fx:id="stopCountButton" layoutX="319.0" layoutY="244.0" mnemonicParsing="false" onAction="#stopTripCount" text="Display Stop Trip Count" />
             <Label fx:id="searchRouteIDlabel" layoutX="269.0" layoutY="294.0" prefHeight="17.0" prefWidth="241.0" text="Enter route_id to view upcoming trips" />
-            <Button fx:id="searchRouteIDButton" layoutX="394.0" layoutY="315.0" mnemonicParsing="false" prefHeight="25.0" onAction="#searchRouteID" prefWidth="105.0" text="Display Trips" />
+            <Button fx:id="searchRouteIDButton" layoutX="391.0" layoutY="312.0" mnemonicParsing="false" onAction="#searchRouteID" prefHeight="25.0" prefWidth="105.0" text="Display Trips" />
             <TextField fx:id="routeIDsearchBox" layoutX="274.0" layoutY="312.0" prefHeight="25.0" prefWidth="121.0" />
          </children>
       </Pane>

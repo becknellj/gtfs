@@ -836,10 +836,10 @@ public class Controller {
             }
 
         } catch (NullPointerException E) {
-            throwAlert("NullPointerException", "No stop id was entered");
+            throwAlert("NullPointerException", "No route id was entered");
             E.printStackTrace();
         } catch (NumberFormatException e) {
-            throwAlert("NumberFormatException", "Incorrect format for stop id, please enter valid ID");
+            throwAlert("NumberFormatException", "Incorrect format for route id, please enter valid ID");
         } catch (Exception e) {
             throwAlert("Input Error", "Try again.");
         }
